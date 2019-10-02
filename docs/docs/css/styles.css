@@ -1,0 +1,19 @@
+.text-center {
+    text-align: center;
+}
+
+article img {
+    border: 1px solid #eee;
+    box-shadow: 0 0 1em #ccc;
+    margin: 30px auto 10px;
+}
+
+article img.emojione {
+    border: none;
+    box-shadow: none;
+    margin: 0;
+}
+
+.md-footer-nav {
+    background-color: rgba(0,0,0,.57);
+}

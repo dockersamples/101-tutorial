@@ -1,0 +1,92 @@
+site_name: Docker 101
+site_description: A tutorial for learning to use Docker
+site_author: Michael Irwin
+# site_url: https://squidfunk.github.io/mkdocs-material/
+
+# Repository
+repo_name: mikesir87/docker-101
+repo_url: https://github.com/mikesir87/docker-101
+edit_uri: ""
+
+# Copyright
+copyright: 'Copyright &copy; 2019 Michael Irwin'
+
+# Configuration
+theme:
+  name: material
+  language: en
+  palette:
+    primary: blue
+    accent: blue
+  font:
+    text: Roboto
+    code: Roboto Mono
+  favicon: assets/images/favicon.png
+  logo:
+    icon: "\uE80C"
+
+extra_css:
+  - css/styles.css
+  - css/dark-mode.css
+
+# Plugins
+plugins:
+  - search
+  - minify:
+      minify_html: true
+
+# Customization
+extra:
+  social:
+    - type: github-alt
+      link: https://github.com/mikesir87
+    - type: twitter
+      link: https://twitter.com/mikesir87
+
+# Extensions
+markdown_extensions:
+  - meta
+  - markdown.extensions.admonition
+  - markdown.extensions.codehilite:
+      guess_lang: false
+  - markdown.extensions.footnotes
+  - markdown.extensions.toc:
+      permalink: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.critic
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_generator: !!python/name:pymdownx.emoji.to_svg
+  - pymdownx.inlinehilite
+  - pymdownx.magiclink:
+      repo_url_shorthand: true
+      user: mikesir87
+      repo: docker-101
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+  - attr_list
+
+# Page tree
+nav:
+  - Tutorial: 
+    - Getting Started: tutorial/index.md
+    - Our Application: tutorial/our-application/index.md
+    - Updating our App: tutorial/updating-our-app/index.md
+    - Persisting our DB: tutorial/persisting-our-data/index.md
+    - Using Bind Mounts: tutorial/using-bind-mounts/index.md
+    - Multi-Container Apps: tutorial/multi-container-apps/index.md
+    - Using Docker Compose: tutorial/using-docker-compose/index.md
+    - Image Building Best Practices: tutorial/image-building-best-practices/index.md
+    - What Next?: tutorial/what-next/index.md
+  - PWD Tips: pwd-tips.md
+
+# Google Analytics
+google_analytics:
+  - !!python/object/apply:os.getenv ["GOOGLE_ANALYTICS_KEY"]
+  - auto
