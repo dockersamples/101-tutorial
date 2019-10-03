@@ -163,24 +163,32 @@ The todo app supports the setting of a few environment variables to specify MySQ
     the variable and get the file contents.
 
 
-With all of that explained, let's start our container!
+With all of that explained, let's start our dev-ready container!
 
 1. We'll specify each of the environment variables above, as well as connect the container to our app network.
 
-    ```bash
+    ```bash hl_lines="3 4 5 6 7"
     docker run -dp 3000:3000 \
+      -w /app -v $PWD:/app \
       --network todo-app \
       -e MYSQL_HOST=mysql \
       -e MYSQL_USER=root \
       -e MYSQL_PASSWORD=secret \
       -e MYSQL_DB=todos \
-      docker-101
+      node:10-alpine \
+      sh -c "yarn install && yarn run dev"
     ```
 
 1. If we look at the logs for the container (`docker logs <container-id>`), we should see a message indicating it's
    using the mysql database.
 
-    ```plaintext
+    ```plaintext hl_lines="7"
+    # Previous log messages omitted
+    $ nodemon src/index.js
+    [nodemon] 1.19.2
+    [nodemon] to restart at any time, enter `rs`
+    [nodemon] watching dir(s): *.*
+    [nodemon] starting `node src/index.js`
     Connected to mysql db at host mysql
     Listening on port 3000
     ```
