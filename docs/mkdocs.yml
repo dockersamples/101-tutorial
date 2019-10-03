@@ -29,6 +29,11 @@ extra_css:
   - css/styles.css
   - css/dark-mode.css
 
+extra_javascript:
+  - http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js
+  - js/jquery.raptorize.1.0.js
+  - js/custom.js
+
 # Plugins
 plugins:
   - search
