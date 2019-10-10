@@ -89,7 +89,7 @@ nav:
     - Using Docker Compose: tutorial/using-docker-compose/index.md
     - Image Building Best Practices: tutorial/image-building-best-practices/index.md
     - What Next?: tutorial/what-next/index.md
-  - PWD Tips: pwd-tips.md
+  - PWD Tips: pwd-tips/index.md
 
 # Google Analytics
 google_analytics:
