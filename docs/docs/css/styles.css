@@ -45,5 +45,9 @@ h1, h2, h3, h4, .md-footer-nav__inner, .md-header-nav__title, footer.md-footer {
 }
 
 .md-header-nav__title {
-    line-height: 2.7rem;
+    line-height: 2.9rem;
+}
+
+.md-header-nav__button img {
+    width: 145px;
 }

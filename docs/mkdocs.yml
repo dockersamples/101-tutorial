@@ -22,8 +22,7 @@ theme:
     text: Roboto
     code: Roboto Mono
   favicon: assets/images/favicon.png
-  logo:
-    icon: "\uE80C"
+  logo: 'images/docker-labs-logo.svg'
 
 extra_css:
   - css/styles.css
