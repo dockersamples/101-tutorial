@@ -9,6 +9,6 @@ services:
     command: mkdocs serve -a 0.0.0.0:8000
     working_dir: /app
     ports:
-      - 127.0.0.1:8000:8000
+      - 8000:8000
     volumes:
       - ./:/app
