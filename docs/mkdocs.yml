@@ -1,15 +1,15 @@
 site_name: Docker 101
 site_description: A tutorial for learning to use Docker
-site_author: Michael Irwin
+site_author: Docker
 # site_url: https://squidfunk.github.io/mkdocs-material/
 
 # Repository
 repo_name: dockersamples/101-tutorial
-repo_url: https://hub.docker.com/r/dockersamples/101-tutorial
+repo_url: https://github.com/dockersamples/101-tutorial
 edit_uri: ""
 
 # Copyright
-copyright: 'Copyright &copy; 2019 Michael Irwin'
+copyright: 'Copyright &copy; 2019 Docker'
 
 # Configuration
 theme:
@@ -43,7 +43,7 @@ plugins:
 extra:
   social:
     - type: github-alt
-      link: https://github.com/dockersamples
+      link: https://github.com/dockersamples/101-tutorial
 
 # Extensions
 markdown_extensions:
@@ -62,10 +62,10 @@ markdown_extensions:
   - pymdownx.emoji:
       emoji_generator: !!python/name:pymdownx.emoji.to_svg
   - pymdownx.inlinehilite
-  # - pymdownx.magiclink:
-  #     repo_url_shorthand: true
-  #     user: mikesir87
-  #     repo: docker-101
+  - pymdownx.magiclink:
+      repo_url_shorthand: true
+      user: dockersamples
+      repo: 101-tutorial
   - pymdownx.mark
   - pymdownx.smartsymbols
   - pymdownx.superfences
