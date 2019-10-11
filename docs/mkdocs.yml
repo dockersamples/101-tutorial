@@ -4,8 +4,8 @@ site_author: Michael Irwin
 # site_url: https://squidfunk.github.io/mkdocs-material/
 
 # Repository
-repo_name: mikesir87/docker-101
-repo_url: https://github.com/mikesir87/docker-101
+repo_name: dockersamples/101-tutorial
+repo_url: https://hub.docker.com/r/dockersamples/101-tutorial
 edit_uri: ""
 
 # Copyright
@@ -43,9 +43,7 @@ plugins:
 extra:
   social:
     - type: github-alt
-      link: https://github.com/mikesir87
-    - type: twitter
-      link: https://twitter.com/mikesir87
+      link: https://github.com/dockersamples
 
 # Extensions
 markdown_extensions:
@@ -64,10 +62,10 @@ markdown_extensions:
   - pymdownx.emoji:
       emoji_generator: !!python/name:pymdownx.emoji.to_svg
   - pymdownx.inlinehilite
-  - pymdownx.magiclink:
-      repo_url_shorthand: true
-      user: mikesir87
-      repo: docker-101
+  # - pymdownx.magiclink:
+  #     repo_url_shorthand: true
+  #     user: mikesir87
+  #     repo: docker-101
   - pymdownx.mark
   - pymdownx.smartsymbols
   - pymdownx.superfences
@@ -82,6 +80,7 @@ nav:
     - Getting Started: tutorial/index.md
     - Our Application: tutorial/our-application/index.md
     - Updating our App: tutorial/updating-our-app/index.md
+    - Sharing our App: tutorial/sharing-our-app/index.md
     - Persisting our DB: tutorial/persisting-our-data/index.md
     - Using Bind Mounts: tutorial/using-bind-mounts/index.md
     - Multi-Container Apps: tutorial/multi-container-apps/index.md

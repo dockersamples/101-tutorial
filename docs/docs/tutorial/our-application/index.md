@@ -100,3 +100,12 @@ command (remember that from earlier?).
 
 At this point, you should have a running todo list manager with a few items, all built by you!
 Now, let's make a few changes and learn about managing our containers.
+
+
+## Recap
+
+In this short section, we learned the very basics about building a container image and created a
+Dockerfile to do so. Once we built an image, we started the container and saw the running app!
+
+Next, we're going to make a modification to our app and learn how to update our running application
+with a new image. Along the way, we'll learn a few other useful commands.

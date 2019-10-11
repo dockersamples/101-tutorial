@@ -84,10 +84,9 @@ To remove a container, it first needs to be stopped. Then, it can be removed.
 
 While we were able to build an update, there were two things you might have noticed:
 
-- All of the existing items in our todo list are gone! That's not a very good app! We'll show how to
-fix that in the next section.
+- All of the existing items in our todo list are gone! That's not a very good app! We'll talk about that
+shortly.
 - There were _a lot_ of steps involved for such a small change. In an upcoming section, we'll talk about 
 how to see code updates without needing to rebuild and start a new container every time we make a change.
 
-
-
+Before talking about persistence, we'll quickly see how to share these images with others.

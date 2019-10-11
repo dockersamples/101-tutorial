@@ -306,3 +306,12 @@ Once torn down, you can switch to another project, run `docker-compose up` and b
 doesn't get much simpler than that!
 
 
+## Recap
+
+In this section, we learned about Docker Compose and how it helps dramatically simply the defining and
+sharing of multi-service applications. We created a Compose file by translating the commands we were
+using into the appropriate compose format.
+
+At this point, we're starting to wrap up the tutorial. However, there are a few best practices about
+image building we want to cover, as there is a big issue with the Dockerfile we've been using. So,
+let's take a look!
