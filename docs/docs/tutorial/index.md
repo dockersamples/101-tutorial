@@ -9,20 +9,20 @@ Let's first explain the command that you just ran. In case you forgot,
 here's the command:
 
 ```cli
-docker run -d -p 80:80 mikesir87/docker-101
+docker run -d -p 80:80 dockersamples/101-tutorial
 ```
 
 You'll notice a few flags being used. Here's some more info on them:
 
 - `-d` - run the container in detached mode (in the background)
 - `-p 80:80` - map port 80 of the host to port 80 in the container
-- `mikesir87/docker-101` - the image to use
+- `dockersamples/101-tutorial` - the image to use
 
 !!! info "Pro tip"
     You can combine single character flags to shorten the full command.
     As an example, the command above could be written as:
     ```
-    docker run -dp 80:80 mikesir87/docker-101
+    docker run -dp 80:80 dockersamples/101-tutorial
     ```
 
 ## What is a container?
