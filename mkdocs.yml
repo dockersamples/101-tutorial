@@ -1,5 +1,5 @@
 site_name: Docker 101
-site_description: A tutorial for learning to use Docker
+site_description: Tutorial para aprender usar Docker
 site_author: Docker
 # site_url: https://squidfunk.github.io/mkdocs-material/
 
@@ -77,8 +77,8 @@ markdown_extensions:
 # Page tree
 nav:
   - Tutorial: 
-    - Getting Started: tutorial/index.md
-    - Our Application: tutorial/our-application/index.md
+    - Começando: tutorial/index.md
+    - Nossa Aplicação: tutorial/our-application/index.md
     - Updating our App: tutorial/updating-our-app/index.md
     - Sharing our App: tutorial/sharing-our-app/index.md
     - Persisting our DB: tutorial/persisting-our-data/index.md
