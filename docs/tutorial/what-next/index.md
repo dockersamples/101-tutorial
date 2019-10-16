@@ -17,11 +17,6 @@ o estado esperado.
 
 ## Projetos do Cloud Native Computing Foundation
 
-The CNCF is a vendor-neutral home for various open-source projects, including Kubernetes, Prometheus, 
-Envoy, Linkerd, NATS, and more! You can view the [graduated and incubated projects here](https://www.cncf.io/projects/)
-and the entire [CNCF Landscape here](https://landscape.cncf.io/). There are a LOT of projects to help
-solve problems around monitoring, logging, security, image registries, messaging, and more!
-
 O CNCF é um local neutro em relação a fornecedores para vários projetos open-source, incluindo Kubernetes, 
 Prometheus, Envoy, Linkerd, NATS e mais! Você pode ver os [projetos incubados e graduados aqui](https://www.cncf.io/projects/)
 e todo o [panorama CNCF aqui](https://landscape.cncf.io/). Existem MUITOS projetos que ajudam a resolver
