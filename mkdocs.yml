@@ -79,15 +79,15 @@ nav:
   - Tutorial: 
     - Começando: tutorial/index.md
     - Nossa Aplicação: tutorial/our-application/index.md
-    - Updating our App: tutorial/updating-our-app/index.md
-    - Sharing our App: tutorial/sharing-our-app/index.md
-    - Persisting our DB: tutorial/persisting-our-data/index.md
-    - Using Bind Mounts: tutorial/using-bind-mounts/index.md
-    - Multi-Container Apps: tutorial/multi-container-apps/index.md
-    - Using Docker Compose: tutorial/using-docker-compose/index.md
-    - Image Building Best Practices: tutorial/image-building-best-practices/index.md
-    - What Next?: tutorial/what-next/index.md
-  - PWD Tips: pwd-tips/index.md
+    - Atualizando nossa Aplicação: tutorial/updating-our-app/index.md
+    - Compartilhando nossa Aplicação: tutorial/sharing-our-app/index.md
+    - Persistindo nosso BD: tutorial/persisting-our-data/index.md
+    - Utilizando Montagens Bind: tutorial/using-bind-mounts/index.md
+    - Aplicações Multi-Container: tutorial/multi-container-apps/index.md
+    - Usando Docker Compose: tutorial/using-docker-compose/index.md
+    - Melhores Práticas para Construir uma Imagem: tutorial/image-building-best-practices/index.md
+    - E Depois?: tutorial/what-next/index.md
+  - Dicas PWD: pwd-tips/index.md
 
 # Google Analytics
 google_analytics:
