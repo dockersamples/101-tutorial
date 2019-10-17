@@ -31,8 +31,8 @@ anteriormente.
     ```
 
     Cada uma das linhas representa uma camada na imagem. A tela aqui mostra a base na parte inferior com
-     a camada mais nova na parte superior. Com isso, você também pode ver rapidamente o tamanho de cada camada, ajudando
-     diagnosticar imagens grandes.
+    a camada mais nova na parte superior. Com isso, você também pode ver rapidamente o tamanho de cada camada, ajudando
+    diagnosticar imagens grandes.
 
 1. Você notará que várias das linhas estão truncadas. Se você adicionar o parâmetro `--no-trunc` terá como retorno a
     saída toda.
