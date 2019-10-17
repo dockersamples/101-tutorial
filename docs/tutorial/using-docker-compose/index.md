@@ -293,8 +293,6 @@ Agora que temos o nosso arquivo `docker-compose.yml`, podemos iniciá-lo!
 Quando você estiver pronto para derrubar tudo, simplesmente execute `docker-compose down`. Os contêineres pararão e a rede será removida.
 
 !!! warning "Removendo Volumes"
-    By default, named volumes in your compose file are NOT removed when running `docker-compose down`. If you want to
-    remove the volumes, you will need to add the `--volumes` flag.
     Por padrão, os volumes nomeados no seu arquivo compose NÃO são removidos ao executar o `docker-compose down`. Se você quiser
     remover os volumes, você precisará adicionar a opção `--volumes`.
 
