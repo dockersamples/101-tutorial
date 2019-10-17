@@ -17,6 +17,9 @@ RUN apk add zip && \
 # Do the actual build of the mkdocs site
 FROM base AS build
 COPY . .
+#Adjusts file and folder to pt-br
+RUN mv mkdocs_pt-br.yml mkdocs.yml && \
+    mv docs_pt-br docs
 RUN mkdocs build
 
 # Extract the static content from the build
