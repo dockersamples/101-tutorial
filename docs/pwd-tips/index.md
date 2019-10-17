@@ -1,49 +1,48 @@
 
-## Creating Files
+## Criando Arquivos
 
-If you're new to a Linux terminal, don't worry! The easiest way to create a file is to use the `touch` command.
+Se você é novo no terminal Linux, não se preocupe! O jeito mais fácil de criar um arquivo é utilizando o
+comando `touch`.
 
 ```bash
 touch Dockerfile
 ```
 
-If you run `ls`, you'll see that the file has been created. Once created, you can use the **Editing Files** tips below.
+Se você rodar `ls`, você verá que o arquivo foi criado. Uma vez criado, você pode utilizar as dicas **Editando Arquivos** abaixo.
 
+## Editando Arquivos
 
-## Editing Files
-
-In PWD, you are welcome to use any CLI-based editor. However, we know many folks aren't as comfortable in the CLI.
-You are welcome to click on the "Editor" button to get a file manager view.
+No PWD, você pode utilizar qualquer editor de texto baseado em CLI. Entretanto, sabemos que muitos não se sentem
+confortáveis utilizando o CLI.
+Você pode clicar no botão "Editor" para abrir a janela do gerenciador de arquivos.
 
 ![Editor Button](editor-button.png){: style=width:50% }
 {:.text-center}
 
-After clicking the editor button, the file editor will open. Selecting a file will provide a web-based editor.
+Depois de clicar no botão editor, o editor de arquivo irá abrir. Selecionando um arquivo fornecerá um editor 
+baseado na web.
 
 ![Editor Display](editor-display.png){: style=width:75% }
 {: .text-center }
 
+## Abrindo uma Aplicação quando não tiver o botão
 
-## Opening an App when the badge is gone
+Se você iniciou um contêiner, mas o botão da porta não apareceu, ainda existe um jeito de abrir a aplicação.
 
-If you have started a container, but the port badge doesn't come up, there is a way to still open the app.
-
-1. First, validate the container is actually running and didn't just fail to start. Run `docker ps` and 
-   verify there is a port mapping in the `PORTS` section.
+1. Primeiro, valide se o contêiner está realmente rodando e apenas não falhou ao iniciar. Rode `docker ps` e
+   verifique se a porta está mapeada na seção `PORTS`.
 
     ```bash
     $ docker ps
     CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                    NAMES
     976e7066d705        docker-101          "docker-entrypoint.s…"   2 seconds ago       Up 1 second         0.0.0.0:3000->3000/tcp   xenodochial_ritchie
     ```
-  
-    If the container failed to start, check the container logs and try to figure out what might be going on.
 
-1. In PWD, find the `SSH` display. It should have a display that looks like `ssh ip172...`. Copy everything AFTER
-   the `ssh` portion (`ip172....`).
+    Se o contêiner falhou ao iniciar, verifique os logs do contêiner e tente descobrir o que aconteceu.
 
-1. Paste that into the web browser, but do NOT hit enter yet. Find the `@` symbol. Replace it with `-PORT.` For example,
-   if I had `ip172-18-0-22-bmf9t2ds883g009iqq80@direct.labs.play-with-docker.com` and wanted to look at port 3000, I would
-   open <code>ip172-18-0-22-bmf9t2ds883g009iqq80<strong>-3000</strong>.direct.labs.play-with-docker.com</code>.
+1. No PWD, procure o painel `SSH`. Ele deve mostrar algo parecido com `ssh ip172...`. Copie tudo DEPOIS da parte
+   do `ssh` (`ip172....`).
 
-   
+1. Cole isso no navegador, mas NÃO aperte enter ainda. Procure o símbolo `@`. Substitua por `-PORT`. Por exemplo,
+   se eu tivesse `ip172-18-0-22-bmf9t2ds883g009iqq80@direct.labs.play-with-docker.com` e quisesse ver a porta 3000, eu iria
+   abrir <code>ip172-18-0-22-bmf9t2ds883g009iqq80<strong>-3000</strong>.direct.labs.play-with-docker.com</code>.
