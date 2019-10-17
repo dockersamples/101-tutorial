@@ -3,7 +3,7 @@ Como uma pequena solicitação de funcionalidade, fomos acionados pela equipe de
 o "texto vazio" quando não tivermos nenhum item da lista de tarefas. Eles
 gostariam de fazer a transição para o seguinte:
 
-> Você não tem nenhuma tarefa ainda! Adicione uma acima!
+> Sem tarefas ainda! Adicione uma acima!
 
 Simples, não? Vamos fazer essa mudança.
 
@@ -12,8 +12,8 @@ Simples, não? Vamos fazer essa mudança.
 1. No arquivo `~/app/src/static/app.js` atualize a linha 56 para que o novo "texto vazio" seja utilizado. ([Dicas de edição de arquivos no PWD aqui](/pwd-tips#editing-files))
 
     ```diff
-    -                <p className="text-center">No items yet! Add one above!</p>
-    +                <p className="text-center">Você não tem nenhuma tarefa ainda! Adicione uma acima!</p>
+    - <p className="text-center">No items yet! Add one above!</p>
+    + <p className="text-center">Sem tarefas ainda! Adicione uma acima!</p>
     ```
 
 1. Vamos construir uma versão atualizada da imagem usando o mesmo comando usado anteriormente.
