@@ -1,6 +1,6 @@
 
-Agora que criamos uma imagem, vamos compartilhá-la! Para compartilhar imagens do Docker, você precisa usar o Docker Registry
-O registro padrão é o Docker Hub e é de onde vieram todas as imagens que usamos.
+Agora que criamos uma imagem, vamos compartilhá-la! Para compartilhar imagens do Docker, você precisa usar o Docker Registry,
+o repositório padrão é o Docker Hub e é de onde vieram todas as imagens que usamos.
 
 ## Criando um repositório
 
@@ -70,10 +70,10 @@ instância que nunca viu esse contêiner!
 
 ## Recapitulando
 
-Nesta seção, aprendemos como compartilhar nossas imagens, enviando-as para um registro. Depois iniciamos a uma
+Nesta seção, aprendemos como compartilhar nossas imagens, enviando-as para um repositório. Depois iniciamos uma
 nova instância e fomos capazes de executar a imagem recém enviada. Isso é bastante comum em pipelines de IC,
 onde o pipeline criará a imagem e a enviará para um registro e, em seguida, para o ambiente de produção
-utilizar a versão mais recente da imagem.
+utilizando a versão mais recente da imagem.
 
 Agora que já descobrimos isso, vamos voltar ao que aprendemos no final da última
 seção. Como você deve se lembrar, percebemos que, quando reiniciamos a aplicação, perdemos todos os itens da lista de tarefas.
