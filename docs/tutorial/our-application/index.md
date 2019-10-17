@@ -62,8 +62,8 @@ veja algumas falhas no Dockerfile abaixo. Mas não se preocupe! Nós vamos exami
     ```
 
     Este comando usou o Dockerfile para criar uma nova imagem de contêiner. Você pode
-    nter notado que muitas "camadas" foram baixadas. Isso ocorre porque instruímos
-    o construtor que queríamos iniciar a partir da imagem `node: 10-alpine`. Mas como nós
+    ter notado que muitas "camadas" foram baixadas. Isso ocorre porque definimos no Dockerfile
+    que queríamos iniciar a partir da imagem `node: 10-alpine`. Mas como nós
     não tinhamos essa imagem em nossa máquina ela precisava ser baixada.
 
     Depois disso, copiamos a nossa aplicação e usamos `yarn` para instalar as dependências.
@@ -84,7 +84,7 @@ Agora que temos uma imagem, vamos executar a aplicação! Para fazer isso, usare
     Lembra das opções `-d` e `-p`? Estamos executando o novo contêiner no modo "desanexado" (no
     background) e criando um mapeamento entre a porta 3000 do host e a porta 3000 do contêiner.
 
-1. Abra a aplicação clicando no distintivo "3000" que apareceu na parte superior da interface do PWD. Uma vez aberto,
+1. Abra a aplicação clicando no link "3000" que apareceu na parte superior da interface do PWD. Uma vez aberto,
     você deve ter uma lista de tarefas vazia!
 
     ![Lista de tarefas vazia](todo-list-empty.png){: style="width:450px;margin-top:20px;"}
