@@ -84,12 +84,12 @@ Então, bora lá!
 
 Usar pontos de montam é _muito_ comum para setups de desenvolvimento local. A vantagem é que a máquina dev não precisa ter
 todas as ferramentas e ambientes de build instalados. Com apenas um `docker run`, o ambiente de desenvolvimento é puxado e fica pronto
-para ser usado. VAmos falar sobre Docker Compose em um passo futuro, já que isso simplifica nossos comandos (nós já estamos usando várias flags).
+para ser usado. Vamos falar sobre Docker Compose em um passo futuro, já que isso simplifica nossos comandos (nós já estamos usando várias flags).
 
 ## Recapitulando
 
 Neste ponto, já podemos persistir nosso banco de dados e responder rapidamente às necessidades e demandas dos nossos investidores
-e fundadores. Viva!
+e fundadores. \o/!
 Mas, Adivinha? Recebemos grandes notícias!
 
 **Seu projeto foi selecionado para desenvolvimento futuro!**
