@@ -20,8 +20,8 @@ E há mais razões. Portanto, atualizaremos nossa app para funcionar assim:
 ## Trabalhando em rede
 
 Lembre-se de que os contêineres, por padrão, são executados isoladamente e não sabem nada sobre outros processos
-ou recipientes na mesma máquina. Então, como permitimos que um contêiner fale com outro? A resposta é
-**rede**. Agora, você não precisa ser um engenheiro de rede (viva!). Lembre-se simplesmente desta regra ...
+ou contêiners na mesma máquina. Então, como permitimos que um contêiner fale com outro? A resposta é
+**rede**. Agora, você não precisa ser um engenheiro de rede (\o/). Lembre-se simplesmente desta regra...
 
 > Se dois contêineres estiverem na mesma rede, eles poderão se comunicar. Se não estiverem, não podem.
 
@@ -37,7 +37,7 @@ Por enquanto, criaremos a rede primeiro e anexaremos o contêiner MySQL na inici
     ```
 
 1. Inicie um contêiner MySQL e conecte-o à rede. Também vamos definir algumas variáveis de ambiente que o
-   banco de dados utilizará para inicializar o banco de dados (consulte a seção "Variáveis de ambiente" no [MySQL Docker Hub listing](https://hub.docker.com/_/mysql/)).
+  banco de dados utilizará para inicializar o banco de dados (consulte a seção "Variáveis de ambiente" no [MySQL Docker Hub listing](https://hub.docker.com/_/mysql/)).
 
     ```bash
     docker run -d \
@@ -51,8 +51,9 @@ Por enquanto, criaremos a rede primeiro e anexaremos o contêiner MySQL na inici
     Você também verá que especificamos o parâmetro `--network-alias`. Voltaremos a isso mais tarde.
 
     !!! info "Dica"
-        Você notará que estamos usando um volume chamado `todo-mysql-data` aqui e montamos em `/var/lib/mysql`, que é
-        o local onde o MySQL armazena seus dados. No entanto, nunca executamos o comando `docker volume create`. O Docker                  reconhece que queremos usar um volume nomeado e cria um automaticamente para nós.
+        Você notará que estamos usando um volume chamado `todo-mysql-data` aqui e montamos em `/var/lib/mysql` que é
+        o local onde o MySQL armazena seus dados. No entanto, nunca executamos o comando `docker volume create`. O Docker
+        reconhece que queremos usar um volume nomeado e cria um automaticamente para nós.
 
 1. Para confirmar se o banco de dados está em funcionamento, execute o comando abaixo e veja se o mesmo está conectando.
 
@@ -61,7 +62,7 @@ Por enquanto, criaremos a rede primeiro e anexaremos o contêiner MySQL na inici
     ```
 
     Quando o prompt pedindo senha aparecer, digite **secret**. No cli do MySQL, liste os bancos de dados e verifique
-    se você vê o banco de dados `todos`.
+  se você vê o banco de dados `todos`.
 
     ```cli
     mysql> SHOW DATABASES
@@ -98,7 +99,7 @@ Para descobrir, vamos usar o contêiner [nicolaka/netshoot](https://github.com/n
     docker run --it --network todo-app nicolaka/netshoot
     ```
 
-1. Dentro do contêiner, vamos usar o comando `dig`, que é uma ferramenta para tesstar a resolução de nomes (DNS). Nós vamos procurar o endereço IP para o nome do host `mysql`.
+1. Dentro do contêiner, vamos usar o comando `dig`, que é uma ferramenta para testar a resolução de nomes (DNS). Nós vamos procurar o endereço IP para o nome do host `mysql`.
 
     ```bash
     dig mysql
@@ -127,11 +128,11 @@ Para descobrir, vamos usar o contêiner [nicolaka/netshoot](https://github.com/n
 
     Na linha "ANSWER SECTION", você verá um registro `A` para` mysql` que resolve para `172.23.0.2`
      (seu endereço IP provavelmente terá um valor diferente). Enquanto `mysql` normalmente não é um nome de host válido,
-     o Docker conseguiu resolvê-lo no endereço IP do contêiner que tinha esse alias de rede (lembre-se do
-     parâmetro `--network-alias` que usamos anteriormente?).
+   o Docker conseguiu resolvê-lo no endereço IP do contêiner que tinha esse alias de rede (lembre-se do
+   parâmetro `--network-alias` que usamos anteriormente?).
 
     Isso significa que... nossa app só precisa se conectar a um host chamado `mysql` e ele conversará com o
-     banco de dados! Muito mais simples!
+   banco de dados! Muito mais simples!
 
 
 ## Executando sua App com banco MySQL
@@ -143,17 +144,19 @@ A aplicação "todo" suporta a configuração de algumas variáveis de ambiente 
 - `MYSQL_PASSWORD` - Senha do usuário para conexão
 - `MYSQL_DB` - Nome do banco de dados que será utilizado
 
-!!! Aviso Definindo configurações de conexão via Env Vars
-    Embora o uso de env vars para definir configurações de conexão seja geralmente aceitável para desenvolvimento, ele é 
-**NÃO É RECOMENDADO** ao executar aplicações em produção. Diogo Monica, ex-líder de segurança da Docker, 
+!!! warning "Cuidado!"
+    Embora o uso de env vars para definir configurações de conexão seja geralmente aceitável para desenvolvimento, ele é
+    **NÃO É RECOMENDADO** ao executar aplicações em produção. Diogo Monica, ex-líder de segurança da Docker, 
     [escreveu um post fantástico](https://diogomonica.com/2017/03/27/why-you-shouldnt-use-env-variables-for-secret-data/)
     explicando o porquê. 
     
-    Um mecanismo mais seguro é usar a opção de "secrets" fornecido por sua estrutura de orquestração de contêiner. Na maioria dos casos, essas secrets são montadas como arquivos no contêiner em execução. Você verá muitas aplicações (incluindo a imagem do MySQL e a aplicação "todo") também suporta env vars com um sufixo `_FILE` para apontar para o caminho que contém o arquivo.
+    Um mecanismo mais seguro é usar a opção de "secrets" fornecido por sua estrutura de orquestração de contêiner. Na maioria dos
+    casos, essas secrets são montadas como arquivos no contêiner em execução. Você verá muitas aplicações (incluindo a imagem do MySQL
+    e a aplicação "todo") também suporta env vars com um sufixo `_FILE` para apontar para o caminho que contém o arquivo. 
     
-    Por exemplo, definir a variável `MYSQL_PASSWORD_FILE` fará com que a aplicação use o conteúdo do arquivo referenciado
-    como a senha de conexão. O Docker não faz nada para oferecer suporte a esses ambientes. Sua aplicação precisará saber para         procurar a variável e obtenha o conteúdo do arquivo.
-
+    Por exemplo, definir a variável `MYSQL_PASSWORD_FILE` fará com que a aplicação use o conteúdo do arquivo referenciado 
+    como a senha de conexão. O Docker não faz nada para oferecer suporte a esses ambientes. Sua aplicação precisará saber para
+    procurar a variável e obtenha o conteúdo do arquivo.
 
 Com tudo isso explicado, vamos começar nosso contêiner pronto para desenvolvimento!
 
