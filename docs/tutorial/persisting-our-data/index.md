@@ -49,7 +49,7 @@ entre 1 e 10000.
 
 ## Volumes de container
 
-Com o experimento anterior, viemos que cada container é efetivamente somente leitura. Enquanto containers podem
+Com o experimento anterior, vimos que cada container é efetivamente somente leitura. Enquanto containers podem
 criar, atualizar e apagar arquivos, estas mudanças são perdidas quando o container é removido e são isoladas naquele container.
 Com volumes nós podemos mudar isso.
 
