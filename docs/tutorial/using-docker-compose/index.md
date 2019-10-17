@@ -3,11 +3,6 @@
 compartilhar aplicações com vários contêineres. Com o Compose, podemos criar um arquivo YAML para definir os serviços
 e com um único comando, pode executar tudo ou derrubar tudo.
 
-The _big_ advantage of using Compose is you can define your application stack in a file, keep it at the root of
-your project repo (it's now version controlled), and easily enable someone else to contribute to your project. 
-Someone would only need to clone your repo and start the compose app. In fact, you might see quite a few projects
-on GitHub/GitLab doing exactly this now.
-
 A _grande_ vantagem de usar o Compose é que você pode definir a stack da sua aplicação em um arquivo, mantê-la na raiz do
 repositório do seu projeto (agora com controle de versão) e permita que outra pessoa contribua com facilidade para o seu projeto.
 Alguém só precisa clonar seu repositório e iniciar o Compose. De fato, você pode ver alguns projetos
