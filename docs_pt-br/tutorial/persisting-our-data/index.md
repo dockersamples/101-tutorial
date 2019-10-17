@@ -5,7 +5,7 @@ o container. Porque isso? Vamos mergulhar em como o container está trabalhando.
 ## O sistema de arquivos de um container
 
 Quando um container roda, ele utiliza as várias camadas de uma imagem como seu sistema de arquivos.
-Cada container também recebe o seu próprio "espaço de rascunho" para criar/atualizar/remover Arquivos.
+Cada container também recebe o seu próprio "espaço de rascunho" para criar/atualizar/remover arquivos.
 Quaisquer mudanças não serão vistas em outro container, _mesmo se_ eles estiverem usando a mesma imagem.
 
 !!! todo
