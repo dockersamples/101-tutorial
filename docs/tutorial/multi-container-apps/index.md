@@ -50,7 +50,7 @@ Por enquanto, criaremos a rede primeiro e anexaremos o contêiner MySQL na inici
 
     Você também verá que especificamos o parâmetro `--network-alias`. Voltaremos a isso mais tarde.
 
-    !!! info "Pro-tip"
+    !!! info "Dica"
         Você notará que estamos usando um volume chamado `todo-mysql-data` aqui e montamos em `/var/lib/mysql`, que é
         o local onde o MySQL armazena seus dados. No entanto, nunca executamos o comando `docker volume create`. O Docker                  reconhece que queremos usar um volume nomeado e cria um automaticamente para nós.
 
