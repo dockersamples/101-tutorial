@@ -1,6 +1,6 @@
 
-Como uma pequena solicitação de funcionalidade, fomos solicitados pela equipe de produto que seja alterado 
-o "empty text" quando não tivermos nenhum item da lista de tarefas. Eles
+Como uma pequena solicitação de funcionalidade, fomos acionados pela equipe de produto para que seja alterado 
+o "texto vazio" quando não tivermos nenhum item da lista de tarefas. Eles
 gostariam de fazer a transição para o seguinte:
 
 > Você não tem nenhuma tarefa ainda! Adicione uma acima!
