@@ -1,5 +1,5 @@
 
-Caso não tenha nota, nossa lista de tarefas está sendo apagada toda vez que rodamos
+Caso não tenha notado, nossa lista de tarefas está sendo apagada toda vez que rodamos
 o container. Porque isso? Vamos mergulhar em como o container está trabalhando.
 
 ## O sistema de arquivos de um container
@@ -25,10 +25,10 @@ entre 1 e 10000.
     ```
 
     Caso esteja se perguntando sobre o comando, nós estamos iniciando um shell bash e invocando
-    dois comandos (por isso o `&&`). A primeira porção pega um número aleatório e escreve ele em `/data.txt`.
+    dois comandos (por isso o `&&`). A primeira parte pega um número aleatório e escreve ele em `/data.txt`.
     O segundo comando está simplesmente "olhando" o arquivo para manter o container rodando.
 
-1. Validar que podemos ver a saída `exec`utando dentro do container. Para fazer isso, você precisa pegar o ID do container (use `docker ps` para pegá-lo).
+1. Para validar, podemos ver a saída `exec`utando dentro do container. Para fazer isso, você precisa pegar o ID do container (use `docker ps` para pegá-lo).
 
     ```bash
     docker exec <container-id> cat /data.txt
@@ -67,7 +67,7 @@ Por padrão, o aplicativo de tarefas grava seus dados em um [Banco de dados SQLi
 no qual todos os dados são gravados em um único arquivo. Apesar de que isso não é o melhor para aplicações de grande escala,
 funciona muito bem para pequenas demos. Nós vamos falar sobre como mudar isto para uma engine de banco dados real depois.
 
-Com o banco de dados sendo um único arquivo, se persistirmos este arquivo no host e tornarmos ele disponível para o próximo continer,
+Com o banco de dados sendo um único arquivo, se persistirmos este arquivo no host e tornarmos ele disponível para o próximo contêiner,
 ele deve conseguir continuar de onde o anterior parou. Ao criar um volume e anexar (geralmente chamado "montar") ele ao diretório que 
 os dados estão armazenados, nós conseguimos persistir os dados. Como o nosso container escreve no arquivo `todo.db`, ele será persistido
 para o host no volume.
@@ -102,10 +102,10 @@ Cada vez que você usar o volume, o Docker irá garantir que os dados corretos s
 
 1. Vá em frente e remova o container quando tiver terminado de checar a sua lista.
 
-Viva! Você agora aprendeu como persistir dados!
+\o/! Você agora aprendeu como persistir dados!
 
 !!! info "Dica"
-    Apesar de volumes nomeados e montagens de ligação (vamos falar delas em um minuto) serem os 2 tipos principais de volumes
+    Apesar de volumes nomeados e volumes montados diretamente no host (vamos falar delas em um minuto) serem os 2 tipos principais de volumes
     suportados em uma instalação padrão da Docker engine, há muito mais plugins de driver de volume disponíveis para suportar
     NFS, SFTP, NetApp e mais! Isto será especialmente importante quando você começar a rodar containers em múltiplos hosts em
     um ambiente clusterizado com Swarm, Kubernetes, etc.
@@ -139,4 +139,4 @@ como root para acessar este diretório no host. Mas, é onde está!
 
 Neste ponto temos uma aplicação funcionando que pode sobreviver à reinicializações! Podemos agora mostrá-la aos nossos investidores e torcer que eles consigam entender a nossa visão!
 
-Porém, nós vimos antes que reconstruir imagens para cada mudança toma um pouco de tempo. Tem de haver uma forma melhor de fazer mudanças, certo? Com montagens de ligação (que nós comentamos antes), há uma forma melhor! Vamos dar uma olhada nisso agora!
+Porém, nós vimos antes que reconstruir imagens para cada mudança toma um pouco de tempo. Tem de haver uma forma melhor de fazer mudanças, certo? Com os pontos de montagens (que nós comentamos antes), há uma forma melhor! Vamos dar uma olhada nisso agora!
