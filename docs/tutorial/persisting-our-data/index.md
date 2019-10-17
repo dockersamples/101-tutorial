@@ -104,7 +104,7 @@ Cada vez que você usar o volume, o Docker irá garantir que os dados corretos s
 
 Viva! Você agora aprendeu como persistir dados!
 
-!!! info "Pro-tip"
+!!! info "Dica"
     Apesar de volumes nomeados e montagens de ligação (vamos falar delas em um minuto) serem os 2 tipos principais de volumes
     suportados em uma instalação padrão da Docker engine, há muito mais plugins de driver de volume disponíveis para suportar
     NFS, SFTP, NetApp e mais! Isto será especialmente importante quando você começar a rodar containers em múltiplos hosts em
