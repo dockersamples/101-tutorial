@@ -1,5 +1,5 @@
 
-## Image Layering
+## Camadas de imagem
 
 Você sabia que pode ver o que compõe uma imagem? Com o comando `docker image history`
 você pode visualizar os comandos que foram utilizados para criar cada camada dentro de uma imagem.
@@ -42,7 +42,7 @@ anteriormente.
     ```
 
 
-## Layer Caching
+## Cache de camadas
 Agora que você viu as camadas em ação, há uma lição importante a aprender para diminuir o tempo de build
 da imagem do contêiner.
 
@@ -149,7 +149,7 @@ uma mudança para o `package.json`. Faz sentido?
     `Using cache`. Então, \o/! Estamos usando o cache de compilação. Agora para você enviar ou baixar essa imagem será muito mais rápido também.
 
 
-## Multi-Stage Builds
+## Construção em multi-estágios
 
 Por Enquanto não vamos nos aprofundar muito neste assunto, o multi-stage build é uma forma muito eficiente
 de criação de uma imagem. Existem várias vantagens, entre eles:
