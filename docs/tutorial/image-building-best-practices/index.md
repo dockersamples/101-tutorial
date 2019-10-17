@@ -196,7 +196,7 @@ COPY --from=build /app/build /usr/share/nginx/html
 Aqui, estamos usando uma imagem `node:10` para executar a compilação (maximizando o cache da camada) e, em seguida, copiando a saída em um contêiner nginx. Legal né?
 
 
-## Recap
+## Recapitulando
 
 Ao entender um pouco sobre como as imagens são estruturadas, podemos criar imagens mais otimizadas e enviar menos alterações.
 Multi Stage Build também nos ajuda a reduzir o tamanho geral da imagem e aumentar a segurança final do contêiner, separando dependências em tempo de construção das dependências de tempo de execução.
