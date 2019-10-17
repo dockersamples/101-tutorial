@@ -1,92 +1,91 @@
 
-As a small feature request, we've been asked by the product team to
-change the "empty text" when we don't have any todo list items. They
-would like to transition it to the following:
+Como uma pequena solicitação de funcionalidade, fomos solicitados pela equipe de produto que seja alterado 
+o "empty text" quando não tivermos nenhum item da lista de tarefas. Eles
+gostariam de fazer a transição para o seguinte:
 
-> You have no todo items yet! Add one above!
+> Você não tem nenhuma tarefa ainda! Adicione uma acima!
 
-Pretty simple, right? Let's make the change.
+Simples, não? Vamos fazer essa mudança.
 
-## Updating our Source Code
+## Atualizando nosso código fonte
 
-1. In the `~/app/src/static/app.js` file, update line 56 to use the new empty text. ([Editing files in PWD tips here](/pwd-tips#editing-files))
+1. No arquivo `~/app/src/static/app.js` atualize a linha 56 para que o novo "texto vazio" seja utilizado. ([Dicas de edição de arquivos no PWD aqui](/pwd-tips#editing-files))
 
     ```diff
     -                <p className="text-center">No items yet! Add one above!</p>
-    +                <p className="text-center">You have no todo items yet! Add one above!</p>
+    +                <p className="text-center">Você não tem nenhuma tarefa ainda! Adicione uma acima!</p>
     ```
 
-1. Let's build our updated version of the image, using the same command we used before.
+1. Vamos construir uma versão atualizada da imagem usando o mesmo comando usado anteriormente.
 
     ```bash
     docker build -t docker-101 .
     ```
 
-1. Let's start a new container using the updated code.
+1. Vamos iniciar um novo contêiner usando a imagem com código atualizado.
 
     ```bash
     docker run -dp 3000:3000 docker-101
     ```
 
-**Uh oh!** You probably saw an error like this (the IDs will be different):
+**Oh!** Você provavelmente viu um erro como o seguinte (os IDs serão diferentes):
 
 ```bash
-docker: Error response from daemon: driver failed programming external connectivity on endpoint laughing_burnell 
+docker: Error response from daemon: driver failed programming external connectivity on endpoint laughing_burnell
 (bb242b2ca4d67eba76e79474fb36bb5125708ebdabd7f45c8eaf16caaabde9dd): Bind for 0.0.0.0:3000 failed: port is already allocated.
 ```
 
-So, what happened? We aren't able to start the new container because our old container is still
-running. The reason this is a problem is because that container is using the host's port 3000 and
-only one process (containers included) can listen to a specific port. To fix this, we need to remove
-the old container.
+Então o que aconteceu? Não podemos iniciar o novo contêiner porque nosso contêiner antigo ainda está
+em execução. A razão pela qual isso é um problema é porque esse contêiner está usando a porta 3000 e
+apenas um processo (contêineres inclusos) pode ouvir uma porta específica. Para corrigir isso, precisamos remover
+o contêiner antigo.
 
 
-## Replacing our Old Container
+## Substituindo nosso contêiner velho
 
-To remove a container, it first needs to be stopped. Then, it can be removed.
+Para remover um contêiner, ele primeiro precisa ser parado. Em seguida, pode ser removido.
 
-1. Get the ID of the container by using the `docker ps` command.
+1. Obtenha o ID do contêiner usando o comando `docker ps`.
 
     ```bash
     docker ps
     ```
 
-1. Use the `docker stop` command to stop the container.
+1. Use o comando `docker stop` para parar o contêiner.
 
     ```bash
-    # Swap out <the-container-id> with the ID from docker ps
-    docker stop <the-container-id>
+    # Troque <container-id> pelo ID obtido com o comando docker ps
+    docker stop <container-id>
     ```
 
-1. Once the container has stopped, you can remove it by using the `docker rm` command.
+1. Depois que o contêiner parar, você pode removê-lo usando o comando `docker rm`.
 
     ```bash
-    docker rm <the-container-id>
+    docker rm <container-id>
     ```
 
-1. Now, start your updated app.
+1. Agora, inicie sua aplicação atualizada.
 
     ```bash
     docker run -dp 3000:3000 docker-101
     ```
 
-1. Open the app and you should see your updated help text!
+1. Abra a aplicação e você verá seu texto de ajuda atualizado!
 
-![Updated application with updated empty text](todo-list-updated-empty-text.png){: style="width:55%" }
+![Aplicação atualizada com texto vazio atualizado](todo-list-updated-empty-text.png){: style="width:55%" }
 {: .text-center }
 
-!!! info "Pro tip"
-    You can stop and remove a container in a single command by adding the "force" flag
-    to the `docker rm` command. For example: `docker rm -f <the-container-id>`
+!!! info "Dica"
+    Você pode parar e remover um contêiner em um único comando adicionando a opção "force"
+    ao comando `docker rm`. Por exemplo: `docker rm -f <container-id>`
 
+## Recapitulando
 
-## Recap
+Embora pudéssemos criar uma atualização, tem duas coisas que você deve ter notado:
 
-While we were able to build an update, there were two things you might have noticed:
+- Todos os itens existentes em nossa lista de tarefas desapareceram! Esse não é muito bom para uma aplicação! Falaremos sobre isso
+Em breve.
+- Havia muitas etapas envolvidas para uma mudança tão pequena. Em uma próxima seção, falaremos sobre
+como ver as atualizações de código sem precisar reconstruir e iniciar um novo contêiner toda vez que fazemos uma alteração.
 
-- All of the existing items in our todo list are gone! That's not a very good app! We'll talk about that
-shortly.
-- There were _a lot_ of steps involved for such a small change. In an upcoming section, we'll talk about 
-how to see code updates without needing to rebuild and start a new container every time we make a change.
-
-Before talking about persistence, we'll quickly see how to share these images with others.
+Antes de falar sobre a persistência, veremos rapidamente como compartilhar essas imagens com outras pessoas.
