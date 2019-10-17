@@ -1,30 +1,30 @@
 
-Agora que criamos uma imagem, vamos compartilhá-la! Para compartilhar imagens do Docker, você precisa usar o Docker Registry,
-o repositório padrão é o Docker Hub e é de onde vieram todas as imagens que usamos.
+Now that we've built an image, let's share it! To share Docker images, you have to use a Docker
+registry. The default registry is Docker Hub and is where all of the images we've used have come from.
 
-## Criando um repositório
+## Create a Repo
 
-Para enviar uma imagem por push, primeiro precisamos criar um repositório no Docker Hub.
+To push an image, we first need to create a repo on Docker Hub.
 
-1. Vá até [Docker Hub](https://hub.docker.com) e faça login se precisar.
+1. Go to [Docker Hub](https://hub.docker.com) and log in if you need to.
 
-1. Clique no botão **Create Repository**.
+1. Click the **Create Repository** button.
 
-1. Como nome de repositório, utilize `101-todo-app`. Verifique se a visibilidade está como `Public`.
+1. For the repo name, use `101-todo-app`. Make sure the Visibility is `Public`.
 
-1. Clique no botão **Create**!
+1. Click the **Create** button!
 
-Se você olhar no lado direito da página, verá uma seção chamada **Docker commands**. Isto dá
-um exemplo de comando que você precisará executar para enviar para este repositório.
+If you look on the right-side of the page, you'll see a section named **Docker commands**. This gives
+an example command that you will need to run to push to this repo.
 
 ![Docker command with push example](push-command.png){: style=width:75% }
 {: .text-center }
 
 
-## Enviando sua imagem
+## Pushing our Image
 
-1. De volta à sua instância do PWD, tente executar o comando, você deve receber um erro que parecido
-como isso:
+1. Back in your PWD instance, try running the command. You should get an error that looks something 
+like this:
 
     ```plaintext
     $ docker push dockersamples/101-todo-app
@@ -32,50 +32,51 @@ como isso:
     An image does not exist locally with the tag: dockersamples/101-todo-app
     ```
 
-    Por que falhou? O comando push estava procurando uma imagem denominada dockersamples/101-todo-app, mas
-     não encontrou uma. Se você executar `docker image ls`, também não verá uma.
+    Why did it fail? The push command was looking for an image named dockersamples/101-todo-app, but
+    didn't find one. If you run `docker image ls`, you won't see one either.
 
-    Para consertar isso, precisamos "marcar" nossa imagem, o que basicamente significa atribuir outro nome a ela.
+    To fix this, we need to "tag" our image, which basically means give it another name.
 
-1. Use o comando `docker tag` para dar à imagem` docker-101` um novo nome. Certifique-se de trocar
-    `YOUR-USER-NAME` com seu ID do Docker.
+1. Use the `docker tag` command to give the `docker-101` image a new name. Be sure to swap out
+   `YOUR-USER-NAME` with your Docker ID.
 
     ```bash
     docker tag docker-101 YOUR-USER-NAME/101-todo-app
     ```
 
-1. Agora tente o comando push novamente.
+1. Now try your push command again. If you're copying the value from Docker Hub, you can drop the 
+   `tagname` portion, as we didn't add a tag to the image name.
 
     ```bash
     docker push YOUR-USER-NAME/101-todo-app
     ```
 
-## Executando sua imagem em um novo servidor
+## Running our Image on a New Instance
 
-Agora que nossa imagem foi criada e inserida em um registro, vamos tentar executar nossa aplicação em uma nova
-instância que nunca viu esse contêiner!
+Now that our image has been built and pushed into a registry, let's try running our app on a brand
+instance that has never seen this container!
 
-1. Volte no PWD, clique em **Add New Instance** para criar uma nova instância.
+1. Back in PWD, click on **Add New Instance** to create a new instance.
 
-1. Na nova instância, inicie a aplicação recém enviada.
+1. In the new instance, start your freshly pushed app.
 
     ```bash
     docker run -dp 3000:3000 YOUR-USER-NAME/101-todo-app
     ```
 
-    Você deve ver a imagem sendo baixada, e depois o container sendo criado.
+    You should see the image get pulled down and eventually start up!
 
-1. Clique no link "3000" quando ele aparecer e você deverá ver a aplicação com suas modificações! \o/!
+1. Click on the 3000 badge when it comes up and you should see the app with your modifications! Hooray!
 
 
-## Recapitulando
+## Recap
 
-Nesta seção, aprendemos como compartilhar nossas imagens, enviando-as para um repositório. Depois iniciamos uma
-nova instância e fomos capazes de executar a imagem recém enviada. Isso é bastante comum em pipelines de IC,
-onde o pipeline criará a imagem e a enviará para um registro e, em seguida, para o ambiente de produção
-utilizando a versão mais recente da imagem.
+In this section, we learned how to share our images by pushing them to a registry. We then went to a
+brand new instance and were able to run the freshly pushed image. This is quite common in CI pipelines,
+where the pipeline will create the image and push it to a registry and then the production environment
+can use the latest version of the image.
 
-Agora que já descobrimos isso, vamos voltar ao que aprendemos no final da última
-seção. Como você deve se lembrar, percebemos que, quando reiniciamos a aplicação, perdemos todos os itens da lista de tarefas.
-Obviamente, essa não é uma ótima experiência do usuário, então vamos aprender como podemos persistir os dados depois de
-reiniciar!
+Now that we have that figured out, let's circle back around to what we noticed at the end of the last
+section. As a reminder, we noticed that when we restarted the app, we lost all of our todo list items.
+That's obviously not a great user experience, so let's learn how we can persist the data across 
+restarts!

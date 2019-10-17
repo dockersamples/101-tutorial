@@ -1,51 +1,54 @@
 
-No restante deste tutorial, trabalharemos com um simples gerenciador de listas de tarefas 
-que está sendo executado pelo Node. Se você não conhece o Node, não se preocupe! Nenhuma experiência real em JavaScript é necessária! :smile:
+For the rest of this tutorial, we will be working with a simple todo
+list manager that is running in Node. If you're not familiar with Node,
+don't worry! No real JavaScript experience is needed! :smile:
 
-Nesse ponto, sua equipe de desenvolvimento é bem pequena e você está simplesmente
-criando um aplicativo para provar seu MVP (produto mínimo viável). Você quer
-mostrar como funciona e o que é capaz de fazer sem precisar
-pensar em como isso funcionará para uma equipe grande, vários desenvolvedores, etc.
+At this point, your development team is quite small and you're simply
+building an app to prove out your MVP (minimum viable product). You want
+to show how it works and what it's capable of doing without needing to
+think about how it will work for a large team, multiple developers, etc.
 
-![Screenshot do gerenciador de lista de tarefas](todo-list-sample.png){: style="width:50%;" }
+![Todo List Manager Screenshot](todo-list-sample.png){: style="width:50%;" }
 { .text-center }
 
-## Colocando nosso App no PWD
 
-Antes de podermos executar a aplicação, precisamos inserir o código fonte da aplicação
-no ambiente Play with Docker. Para projetos reais, você pode clonar o repositório. Mas
-nesse caso você fará o upload de um arquivo ZIP.
+## Getting our App into PWD
 
-1. [Faça o download do arquivo zip](/assets/app.zip) e faça o upload para o Play with Docker. Dica, 
-   você pode arrastar e soltar o zip (ou qualquer outro arquivo) no tela do terminal do PWD
+Before we can run the application, we need to get the application source code into 
+the Play with Docker environment. For real projects, you can clone the repo. But, in
+this case, you will upload a ZIP archive.
 
-1. Extraia o conteúdo do arquivo zip no PWD.
+1. [Download the zip](/assets/app.zip) and upload it to Play with Docker. As a
+   tip, you can drag and drop the zip (or any other file) on to the terminal in PWD.
+
+1. In the PWD terminal, extract the zip file.
 
     ```bash
     unzip app.zip
     ```
 
-1. Mude seu diretório para a nova pasta 'app'
+1. Change your current working directory into the new 'app' folder.
 
     ```bash
     cd app/
     ```
 
-1. Nesse diretório você deve ver uma simples aplicação baseada em Node.
+1. In this directory, you should see a simple Node-based application.
 
     ```bash
     ls
     package.json  spec          src           yarn.lock
     ```
 
-## Criando a imagem do contêiner da aplicação
 
-Para criar a imagem precisamos usar um `Dockerfile`. Um Dockerfile 
-é simplesmente um script em texto de instruções que são usadas para 
-criar a imagem do contêiner. Se você já criou Dockerfiles antes, poderá
-veja algumas falhas no Dockerfile abaixo. Mas não se preocupe! Nós vamos examiná-los.
+## Building the App's Container Image
 
-1. Crie um arquivo de nome Dockerfile com o seguinte conteúdo.
+In order to build the application, we need to use a `Dockerfile`. A
+Dockerfile is simply a text-based script of instructions that is used to
+create a container image. If you've created Dockerfiles before, you might
+see a few flaws in the Dockerfile below. But, don't worry! We'll go over them.
+
+1. Create a file named Dockerfile with the following contents.
 
     ```dockerfile
     FROM node:10-alpine
@@ -55,51 +58,54 @@ veja algumas falhas no Dockerfile abaixo. Mas não se preocupe! Nós vamos exami
     CMD ["node", "/app/src/index.js"]
     ```
 
-1. Construa a imagem do contêiner usando o comando `docker build`.
+1. Build the container image using the `docker build` command.
 
     ```bash
     docker build -t docker-101 .
     ```
 
-    Este comando usou o Dockerfile para criar uma nova imagem de contêiner. Você pode
-    ter notado que muitas "camadas" foram baixadas. Isso ocorre porque definimos no Dockerfile
-    que queríamos iniciar a partir da imagem `node: 10-alpine`. Mas como nós
-    não tinhamos essa imagem em nossa máquina ela precisava ser baixada.
+    This command used the Dockerfile to build a new container image. You might
+    have noticed that a lot of "layers" were downloaded. This is because we instructed
+    the builder that we wanted to start from the `node:10-alpine` image. But, since we
+    didn't have that on our machine, that image needed to be downloaded.
 
-    Depois disso, copiamos a nossa aplicação e usamos `yarn` para instalar as dependências.
-    A diretiva `CMD` especifica o comando padrão a ser executado ao iniciar um contêiner
-    desta imagem.
+    After that, we copied in our application and used `yarn` to install our application's
+    dependencies. The `CMD` directive specifies the default command to run when starting
+    a container from this image.
 
-## Iniciando um contêiner de aplicação
 
-Agora que temos uma imagem, vamos executar a aplicação! Para fazer isso, usaremos o comando
-`docker run` (lembra-se dele anteriormente?).
+## Starting an App Container
 
-1. Inicie seu contêiner usando o comando `docker run`:
+Now that we have an image, let's run the application! To do so, we will use the `docker run`
+command (remember that from earlier?).
+
+1. Start your container using the `docker run` command:
 
     ```bash
     docker run -dp 3000:3000 docker-101
     ```
 
-    Lembra das opções `-d` e `-p`? Estamos executando o novo contêiner no modo "desanexado" (no
-    background) e criando um mapeamento entre a porta 3000 do host e a porta 3000 do contêiner.
+    Remember the `-d` and `-p` flags? We're running the new container in "detached" mode (in the 
+    background) and creating a mapping between the host's port 3000 to the container's port 3000.
 
-1. Abra a aplicação clicando no link "3000" que apareceu na parte superior da interface do PWD. Uma vez aberto,
-    você deve ter uma lista de tarefas vazia!
+1. Open the application by clicking on the "3000" badge at the top of the PWD interface. Once open,
+   you should have an empty todo list!
 
-    ![Lista de tarefas vazia](todo-list-empty.png){: style="width:450px;margin-top:20px;"}
+    ![Empty Todo List](todo-list-empty.png){: style="width:450px;margin-top:20px;"}
     {: .text-center }
 
-1. Vá em frente e adicione um ou dois itens e veja se ele funciona conforme o esperado. Você pode marcar itens como
-    completo e remover itens.
+1. Go ahead and add an item or two and see that it works as you expect. You can mark items as
+   complete and remove items.
 
-Nesse ponto você tem em execução um gerenciador de lista de tarefas com poucos itens, tudo construído por você!
-Agora vamos fazer algumas alterações e aprender sobre o gerenciamento de nossos contêineres.
 
-## Recapitulando
+At this point, you should have a running todo list manager with a few items, all built by you!
+Now, let's make a few changes and learn about managing our containers.
 
-Nesta seção, aprendemos o básico sobre a construção de uma imagem de contêiner e criamos um
-Dockerfile para fazer isso. Depois que construímos uma imagem, iniciamos o contêiner e vimos a aplicação em execução!
 
-Em seguida, faremos uma modificação e aprenderemos a atualizar nossa aplicação em execução
-com uma nova imagem. Ao longo do caminho, aprenderemos alguns outros comandos úteis.
+## Recap
+
+In this short section, we learned the very basics about building a container image and created a
+Dockerfile to do so. Once we built an image, we started the container and saw the running app!
+
+Next, we're going to make a modification to our app and learn how to update our running application
+with a new image. Along the way, we'll learn a few other useful commands.
