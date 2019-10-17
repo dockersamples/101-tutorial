@@ -78,16 +78,16 @@ markdown_extensions:
 nav:
   - Tutorial: 
     - Começando: tutorial/index.md
-    - Nossa Aplicação: tutorial/our-application/index.md
-    - Atualizando nossa Aplicação: tutorial/updating-our-app/index.md
-    - Compartilhando nossa Aplicação: tutorial/sharing-our-app/index.md
-    - Persistindo nosso BD: tutorial/persisting-our-data/index.md
-    - Utilizando Montagens Bind: tutorial/using-bind-mounts/index.md
-    - Aplicações Multi-Container: tutorial/multi-container-apps/index.md
-    - Usando Docker Compose: tutorial/using-docker-compose/index.md
-    - Melhores Práticas para Construir uma Imagem: tutorial/image-building-best-practices/index.md
-    - E Depois?: tutorial/what-next/index.md
-  - Dicas PWD: pwd-tips/index.md
+    - Nossa Aplicação: tutorial/nossa-aplicacao/index.md
+    - Atualizando nossa Aplicação: tutorial/atualizando-nossa-aplicacao/index.md
+    - Compartilhando nossa Aplicação: tutorial/compartilhando-nossa-aplicacao/index.md
+    - Persistindo nosso BD: tutorial/persistindo-nossos-dados/index.md
+    - Utilizando Montagens Bind: tutorial/utilizando-montagens-bind/index.md
+    - Aplicações Multi-Contêiner: tutorial/aplicacoes-multi-conteiner/index.md
+    - Utilizando Docker Compose: tutorial/utilizando-docker-compose/index.md
+    - Melhores Práticas para Construir uma Imagem: tutorial/melhores-praticas-construir-imagem/index.md
+    - E Depois?: tutorial/e-depois/index.md
+  - Dicas PWD: dicas-pwd/index.md
 
 # Google Analytics
 google_analytics:
