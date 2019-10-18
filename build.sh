@@ -2,9 +2,13 @@
 
 set -e
 
-# Quick verify
+# Quick verify of the mkdocs config
 echo "Verifying mkdocs config"
 docker run --rm -tiv $PWD:/app -w /app node:alpine node verify.js
+
+# Validate tests are passing for the app
+echo "Running tests for the app"
+docker run --rm -tiv $PWD/app:/app -w /app node:alpine sh -c "yarn install && yarn test"
 
 # Build each language and, you know, multi-arch it!
 for language in `find . -type d -maxdepth 1 | grep docs | cut -d '_' -f 2`; do
