@@ -17,7 +17,7 @@ function assertNavDefined(navRoot, key, languageCode, dirRequired = true) {
 
     if (dirRequired) {
         assertDefined(p.dir_name, languageCode, `nav['${key}'].dir_name`);
-        const path = (key === 'PWD Tips') ? `docs_${languageCode}/` : `docs_${languageCode}/tutorial/`;
+        const path = (key === 'PWD Tips') ? `docs_${languageCode}/` : `docs_${languageCode}/${data[languageCode].tutorial_dir_name}/`;
         if (p.dir_name && !fs.existsSync(`${path}${p.dir_name}`))
             errors.push(`${languageCode}: Unable to find directory ${path}${p.dir_name}`);
     }

@@ -2,6 +2,7 @@
     "en" : {
         "language_code": "en",
         "site_description": "A tutorial for learning to use Docker",
+        "tutorial_dir_name": "tutorial",
         "nav": {
             "Tutorial": {
                 "title": "Tutorial"
@@ -54,6 +55,7 @@
     "pt-br" : {
         "language_code": "pt",
         "site_description": "Tutorial para aprender usar Docker",
+        "tutorial_dir_name": "tutorial",
         "nav": {
             "Tutorial": {
                 "title": "Tutorial"
