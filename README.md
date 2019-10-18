@@ -43,3 +43,16 @@ If you have ideas on how to make the tutorial better or new content, please open
 before working on your idea. While we love input, we want to keep the tutorial is scoped to new-comers.
 As such, we may reject ideas for more advanced requests and don't want you to lose any work you might
 have done. So, ask first and we'll gladly hear your thoughts!
+
+
+### Translating the Tutorial
+
+If you wish to translate the tutorial into another language, you need to do the following:
+
+1. Copy the `docs_en` directory and rename it as `docs_[your-language-code]`.
+1. Translate each of the directories.
+1. Translate all *.md files
+1. In the `mkdocs-config.json`, add a key for `your-language-code` and fill in the
+   remaining pieces to configure the mkdocs build.
+1. To test everything out, you can run the `build.sh` script, which will verify the config file,
+   as well as build all languages.
