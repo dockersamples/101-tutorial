@@ -9,7 +9,8 @@ RUN pip install -r requirements.txt
 FROM node:alpine AS app-zip-creator
 WORKDIR /app
 COPY app .
-RUN apk add zip && \
+RUN rm -rf node_modules && \
+    apk add zip && \
     zip -r /app.zip /app
 
 # Configure the mkdocs.yml file for the correct language
