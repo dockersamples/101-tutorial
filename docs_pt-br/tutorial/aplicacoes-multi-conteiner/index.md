@@ -58,14 +58,14 @@ Por enquanto, criaremos a rede primeiro e anexaremos o contêiner MySQL na inici
 1. Para confirmar se o banco de dados está em funcionamento, execute o comando abaixo e veja se o mesmo está conectando.
 
     ```bash
-    docker exec <mysql-container-id> mysql -p
+    docker exec -it <mysql-container-id> mysql -p
     ```
 
     Quando o prompt pedindo senha aparecer, digite **secret**. No cli do MySQL, liste os bancos de dados e verifique
   se você vê o banco de dados `todos`.
 
     ```cli
-    mysql> SHOW DATABASES
+    mysql> SHOW DATABASES;
     ```
 
     Você deve ver uma saída parecida com esta:
