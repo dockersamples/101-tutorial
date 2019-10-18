@@ -2,56 +2,45 @@
 next_page: app.md
 ---
 
-## The command you just ran
+## El comando que acabas de ejecutar
 
-Congratulations! You have started the container for this tutorial!
-Let's first explain the command that you just ran. In case you forgot,
-here's the command:
+¡Felicidades! ¡Has iniciado el contenedor para este tutorial¡
+Primero explicaremos el comando que acabas de ejecutar. En caso de que lo hayas olvidado,
+aquí esta el comando:
 
 ```cli
 docker run -d -p 80:80 dockersamples/101-tutorial
 ```
 
-You'll notice a few flags being used. Here's some more info on them:
+Notarás que se utilizan algunos parametros. A continuación más información sobre estos:
 
-- `-d` - run the container in detached mode (in the background)
-- `-p 80:80` - map port 80 of the host to port 80 in the container
-- `dockersamples/101-tutorial` - the image to use
+- `-d` - ejecuta el contenedor en modo aislado (en segundo plano)
+- `-p 80:80` - mapea el puerto 80 del host local hacia el puerto 80 en el contenedor
+- `dockersamples/101-tutorial` - la imagen a utilizar
 
-!!! info "Pro tip"
-    You can combine single character flags to shorten the full command.
-    As an example, the command above could be written as:
+!!! info "Consejo Pro"
+    Puedes combinar parametros de un solo caracter para reducir el tamaño del comando.
+    Por ejemplo, el comando anterior se podria abreviar de la siguiente manera:
     ```
     docker run -dp 80:80 dockersamples/101-tutorial
     ```
 
-## What is a container?
+## ¿Qué es un contenedor?
 
-Now that you've run a container, what _is_ a container? Simply put, a container is
-simply another process on your machine that has been isolated from all other processes
-on the host machine. That isolation leverages [kernel namespaces and cgroups](https://medium.com/@saschagrunert/demystifying-containers-part-i-kernel-space-2c53d6979504), features that have been 
-in Linux for a long time. Docker has worked to make these capabilities approachable and easy to use.
+Ahora que has ejecutado un contenedor, ¿qué _es_ un contenedor? En pocas palabras, un contenedor es
+simplemente otro proceso que corre en tu máquina y ha sido aislado del resto de procesos que corren en la máquina host. Ese aislamiento aprovecha [kernel namespaces y cgroups](https://medium.com/@saschagrunert/demystifying-containers-part-i-kernel-space-2c53d6979504), funcionalidades que han sido parte de Linux desde hace mucho tiempo. Docker ha trabajado para hacer estas características accesibles y fáciles de usar.
 
-!!! info "Creating Containers from Scratch"
-    If you'd like to see how containers are built from scratch, Liz Rice from Aqua Security
-    has a fantastic talk in which she creates a container from scratch in Go. While she makes
-    a simple container, this talk doesn't go into networking, using images for the filesystem, 
-    and more. But, it gives a _fantastic_ deep dive into how things are working.
+!!! info "Creando Contenedores desde Cero"
+    Si tienes interés en ver como se contruyen los contenedores desde cero, Liz Rice de Aqua Security tiene una charla genial en la cual ella crea un contenedor desde cero utilizando Go. Si bien ella construye un contenedor simple utilizando imagenes para el sistema de archivos y más, la charla no involucra la creación de redes. Pero, da una inmersión _fantástica_ profunda en cómo funcionan las cosas.
 
     <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/8fi7uSYlOdc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-## What is a container image?
+## ¿Qué es una imagen de contenedor?
 
-When running a container, it uses an isolated filesystem. This custom filesystem is provided 
-by a **container image**. Since the image contains the container's filesystem, it must contain everything 
-needed to run an application - all dependencies, configuration, scripts, binaries, etc. The 
-image also contains other configuration for the container, such as environment variables,
-a default command to run, and other metadata.
+Cuando se corre un contenedor, este utiliza un sistema de archivos aislado. Este sistema personalizado es proporcionado por una **imagen de contenedor**. Dado que la imagen contiene el sistema de archivos del contenedor, este debe contener todo lo necesario para ejecutar la aplicación - todas las dependencias, configuración, scripts, binarios, etc. La imagen también contiene otra configuración para el contenedor, tal como variables de entorno, un comando por defecto para ejecutar y otros metadatos.
 
-We'll dive deeper into images later on, covering topics such as layering, best practices, and more.
+
+Más adelante profundizaremos en las imágenes, tomando en cuenta temas como capas, mejores prácticas y más.
 
 !!! info
-    If you're familiar with `chroot`, think of a container as extended version of `chroot`. The
-    filesystem is simply coming from the image. But, a container adds additional isolation not
-    available when simply using chroot.
-
+    Si estas familiarizado/a con `chroot`, piensa en un contenedor como una versión extendida de `chroot`. El sistema de archivos simplemente viene desde la imagen. Pero, un contenedor agrega aislamiento adicional no disponible mediante chroot.
