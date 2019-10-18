@@ -1,0 +1,106 @@
+{
+    "en" : {
+        "language_code": "en",
+        "site_description": "A tutorial for learning to use Docker",
+        "nav": {
+            "Tutorial": {
+                "title": "Tutorial"
+            },
+            "Getting Started": {
+                "title" : "Getting Started"
+            },
+            "Our Application": {
+                "title": "Our Application",
+                "dir_name": "our-application"
+            },
+            "Updating our App": {
+                "title": "Updating our App",
+                "dir_name": "updating-our-app"
+            },
+            "Sharing our App": {
+                "title": "Sharing our App",
+                "dir_name": "sharing-our-app"
+            },
+            "Persisting our DB": {
+                "title": "Persisting our DB",
+                "dir_name": "persisting-our-data"
+            },
+            "Using Bind Mounts": {
+                "title": "Using Bind Mounts",
+                "dir_name": "using-bind-mounts"
+            },
+            "Multi-Container Apps": {
+                "title": "Multi-Container Apps",
+                "dir_name": "multi-container-apps"
+            },
+            "Using Docker Compose": {
+                "title": "Using Docker Compose",
+                "dir_name": "using-docker-compose"
+            },
+            "Image Building Best Practices": {
+                "title": "Image Building Best Practices",
+                "dir_name": "image-building-best-practices"
+            },
+            "What Next?": {
+                "title": "What Next?",
+                "dir_name": "what-next"
+            },
+            "PWD Tips": {
+                "title": "PWD Tips",
+                "dir_name": "pwd-tips"
+            }
+        }
+    },
+    "pt-br" : {
+        "language_code": "pt",
+        "site_description": "Tutorial para aprender usar Docker",
+        "nav": {
+            "Tutorial": {
+                "title": "Tutorial"
+            },
+            "Getting Started": {
+                "title" : "Começando"
+            },
+            "Our Application": {
+                "title": "Nossa Aplicação",
+                "dir_name": "nossa-aplicacao"
+            },
+            "Updating our App": {
+                "title": "Atualizando nossa Aplicação",
+                "dir_name": "atualizando-nossa-aplicacao"
+            },
+            "Sharing our App": {
+                "title": "Compartilhando nossa Aplicação",
+                "dir_name": "compartilhando-nossa-aplicacao"
+            },
+            "Persisting our DB": {
+                "title": "Persistindo nosso BD",
+                "dir_name": "persistindo-nossos-dados"
+            },
+            "Using Bind Mounts": {
+                "title": "Utilizando Montagens Bind",
+                "dir_name": "utilizando-montagens-bind"
+            },
+            "Multi-Container Apps": {
+                "title": "Aplicações Multi-Contêiner",
+                "dir_name": "aplicacoes-multi-conteiner"
+            },
+            "Using Docker Compose": {
+                "title": "Utilizando Docker Compose",
+                "dir_name": "utilizando-docker-compose"
+            },
+            "Image Building Best Practices": {
+                "title": "Melhores Práticas para Construir uma Imagem",
+                "dir_name": "melhores-praticas-construir-imagem"
+            },
+            "What Next?": {
+                "title": "E Depois?",
+                "dir_name": "e-depois"
+            },
+            "PWD Tips": {
+                "title": "Dicas PWD",
+                "dir_name": "dicas-pwd"
+            }
+        }
+    }
+}

@@ -35,7 +35,7 @@ command, you can see the command that was used to create each layer within an im
     diagnose large images.
 
 1. You'll notice that several of the lines are truncated. If you add the `--no-trunc` flag, you'll get the
-   full output (yes... funny how you use a truncated flag to get untruncated output, huh? :smile:)
+   full output (yes... funny how you use a truncated flag to get untruncated output, huh?)
 
     ```bash
     docker image history --no-trunc docker-101

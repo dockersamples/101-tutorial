@@ -59,8 +59,6 @@ markdown_extensions:
   - pymdownx.caret
   - pymdownx.critic
   - pymdownx.details
-  - pymdownx.emoji:
-      emoji_generator: !!python/name:pymdownx.emoji.to_svg
   - pymdownx.inlinehilite
   - pymdownx.magiclink:
       repo_url_shorthand: true
@@ -88,8 +86,3 @@ nav:
     - Image Building Best Practices: tutorial/image-building-best-practices/index.md
     - What Next?: tutorial/what-next/index.md
   - PWD Tips: pwd-tips/index.md
-
-# Google Analytics
-google_analytics:
-  - !!python/object/apply:os.getenv ["GOOGLE_ANALYTICS_KEY"]
-  - auto

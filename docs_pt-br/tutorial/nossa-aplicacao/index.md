@@ -1,6 +1,6 @@
 
 No restante deste tutorial, trabalharemos com um simples gerenciador de listas de tarefas 
-que está sendo executado pelo Node. Se você não conhece o Node, não se preocupe! Nenhuma experiência real em JavaScript é necessária! :smile:
+que está sendo executado pelo Node. Se você não conhece o Node, não se preocupe! Nenhuma experiência real em JavaScript é necessária!
 
 Nesse ponto, sua equipe de desenvolvimento é bem pequena e você está simplesmente
 criando um aplicativo para provar seu MVP (produto mínimo viável). Você quer
