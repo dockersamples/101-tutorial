@@ -96,7 +96,7 @@ Para descobrir, vamos usar o contêiner [nicolaka/netshoot](https://github.com/n
 1. Inicie um novo contêiner usando a imagem nicolaka/netshoot. Certifique-se de conectá-lo à mesma rede.
 
     ```bash
-    docker run --it --network todo-app nicolaka/netshoot
+    docker run -it --network todo-app nicolaka/netshoot
     ```
 
 1. Dentro do contêiner, vamos usar o comando `dig`, que é uma ferramenta para testar a resolução de nomes (DNS). Nós vamos procurar o endereço IP para o nome do host `mysql`.

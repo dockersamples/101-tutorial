@@ -99,7 +99,7 @@ which ships with a _lot_ of tools that are useful for troubleshooting or debuggi
 1. Start a new container using the nicolaka/netshoot image. Make sure to connect it to the same network.
 
     ```bash
-    docker run --it --network todo-app nicolaka/netshoot
+    docker run -it --network todo-app nicolaka/netshoot
     ```
 
 1. Inside the container, we're going to use the `dig` command, which is a useful DNS tool. We're going to look up
