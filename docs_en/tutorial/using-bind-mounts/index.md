@@ -67,7 +67,7 @@ So, let's do it!
 
     When you're done watching the logs, exit out by hitting `Ctrl`+`C`.
 
-1. Now, let's make a change to the app. In the `src/static/app.js` file, let's change the "Add Item" button to simply say
+1. Now, let's make a change to the app. In the `src/static/js/app.js` file, let's change the "Add Item" button to simply say
    "Add". This change will be on line 109.
 
     ```diff

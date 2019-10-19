@@ -9,7 +9,7 @@ Simples, não? Vamos fazer essa mudança.
 
 ## Atualizando nosso código fonte
 
-1. No arquivo `~/app/src/static/app.js` atualize a linha 56 para que o novo "texto vazio" seja utilizado. ([Dicas de edição de arquivos no PWD aqui](/pwd-tips#editing-files))
+1. No arquivo `~/app/src/static/js/app.js` atualize a linha 56 para que o novo "texto vazio" seja utilizado. ([Dicas de edição de arquivos no PWD aqui](/pwd-tips#editing-files))
 
     ```diff
     - <p className="text-center">No items yet! Add one above!</p>

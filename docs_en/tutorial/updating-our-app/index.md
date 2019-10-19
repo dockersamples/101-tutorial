@@ -9,7 +9,7 @@ Pretty simple, right? Let's make the change.
 
 ## Updating our Source Code
 
-1. In the `~/app/src/static/app.js` file, update line 56 to use the new empty text. ([Editing files in PWD tips here](/pwd-tips#editing-files))
+1. In the `~/app/src/static/js/app.js` file, update line 56 to use the new empty text. ([Editing files in PWD tips here](/pwd-tips#editing-files))
 
     ```diff
     -                <p className="text-center">No items yet! Add one above!</p>
