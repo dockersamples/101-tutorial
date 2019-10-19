@@ -65,7 +65,7 @@ Então, bora lá!
 
     Quando terminar de olhar os logs, saia pressionando `Ctrl`+`C`.
 
-1. Agora, vamos fazer a mudança no aplicativo. No arquivo `src/static/app.js` vamos mudar o botão "Add Item" para 
+1. Agora, vamos fazer a mudança no aplicativo. No arquivo `src/static/js/app.js` vamos mudar o botão "Add Item" para 
    simplesmente dizer "Add". Essa mudança será na linha 109
 
     ```diff
