@@ -227,7 +227,7 @@ With all of that explained, let's start our dev-ready container!
 
     Obviously, your table will look different because it has your items. But, you should see them stored there!
 
-1. Exit from the mysql shell
+1. Exit from the mysql cli.
 
     ```bash
     exit
