@@ -36,6 +36,11 @@ So, let's do it!
 
 1. Make sure you don't have any previous `docker-101` containers running.
 
+1. Traverse to the /app directory
+
+    ```bash
+    cd /app
+
 1. Run the following command. We'll explain what's going on afterwards:
 
     ```bash
@@ -47,6 +52,7 @@ So, let's do it!
 
     - `-dp 3000:3000` - same as before. Run in detached (background) mode and create a port mapping
     - `-w /app` - sets the "working directory" or the current directory that the command will run from
+    - `-v $PWD:/app` - volume for the current working directory in the container
     - `node:10-alpine` - the image to use. Note that this is the base image for our app from the Dockerfile
     - `sh -c "yarn install && yarn run dev"` - the command. We're starting a shell using `sh` (alpine doesn't have `bash`) and
       running `yarn install` to install _all_ dependencies and then running `yarn run dev`. If we look in the `package.json`,
@@ -67,7 +73,7 @@ So, let's do it!
 
     When you're done watching the logs, exit out by hitting `Ctrl`+`C`.
 
-1. Now, let's make a change to the app. In the `src/static/js/app.js` file, let's change the "Add Item" button to simply say
+1. Now, let's make a change to the app. In the `src/static/app.js` file, let's change the "Add Item" button to simply say
    "Add". This change will be on line 109.
 
     ```diff

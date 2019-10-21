@@ -11,15 +11,20 @@ think about how it will work for a large team, multiple developers, etc.
 ![Todo List Manager Screenshot](todo-list-sample.png){: style="width:50%;" }
 { .text-center }
 
-
 ## Getting our App into PWD
 
-Before we can run the application, we need to get the application source code into 
+Before we can run the application, we need to get the application source code into
 the Play with Docker environment. For real projects, you can clone the repo. But, in
 this case, you will upload a ZIP archive.
 
 1. [Download the zip](/assets/app.zip) and upload it to Play with Docker. As a
    tip, you can drag and drop the zip (or any other file) on to the terminal in PWD.
+
+1. Verify that the zip has been successfully copied over to your instance
+
+    ```bash
+    ls
+    ```
 
 1. In the PWD terminal, extract the zip file.
 
@@ -47,6 +52,8 @@ In order to build the application, we need to use a `Dockerfile`. A
 Dockerfile is simply a text-based script of instructions that is used to
 create a container image. If you've created Dockerfiles before, you might
 see a few flaws in the Dockerfile below. But, don't worry! We'll go over them.
+
+If you are a beginner and are facing issues in creating or editing files in Linux, please refer to [PWD-Tips](../../pwd-tips/index.md)
 
 1. Create a file named Dockerfile with the following contents.
 

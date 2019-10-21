@@ -91,6 +91,7 @@ Every time you use the volume, Docker will make sure the correct data is provide
    it to `/etc/todos`, which will capture all files created at the path.
 
     ```bash
+    # remove any existing containers using port 3000
     docker run -dp 3000:3000 -v todo-db:/etc/todos docker-101
     ```
 
