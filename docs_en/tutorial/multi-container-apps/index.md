@@ -138,6 +138,11 @@ which ships with a _lot_ of tools that are useful for troubleshooting or debuggi
     What this means is... our app only simply needs to connect to a host named `mysql` and it'll talk to the
     database! It doesn't get much simpler than that!
 
+1. Exit from the netshoot shell
+
+    ```bash
+    exit
+    ```
 
 ## Running our App with MySQL
 
@@ -164,6 +169,12 @@ The todo app supports the setting of a few environment variables to specify MySQ
 
 
 With all of that explained, let's start our dev-ready container!
+
+1. Traverse to the /app directory
+
+    ```bash
+    cd /app
+    ```
 
 1. We'll specify each of the environment variables above, as well as connect the container to our app network.
 
@@ -216,6 +227,11 @@ With all of that explained, let's start our dev-ready container!
 
     Obviously, your table will look different because it has your items. But, you should see them stored there!
 
+1. Exit from the mysql shell
+
+    ```bash
+    exit
+    ```
 
 ## Recap
 
@@ -229,5 +245,3 @@ ports, and more! That's a lot to remember and it's certainly making things harde
 
 In the next section, we'll talk about Docker Compose. With Docker Compose, we can share our application stacks in a
 much easier way and let others spin them up with a single (and simple) command!
-
-

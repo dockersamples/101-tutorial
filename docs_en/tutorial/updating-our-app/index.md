@@ -9,7 +9,7 @@ Pretty simple, right? Let's make the change.
 
 ## Updating our Source Code
 
-1. In the `~/app/src/static/js/app.js` file, update line 56 to use the new empty text. ([Editing files in PWD tips here](/pwd-tips#editing-files))
+1. In the `~/app/src/static/app.js` file, update line 56 to use the new empty text. ([Editing files in PWD tips here](/pwd-tips#editing-files))
 
     ```diff
     -                <p className="text-center">No items yet! Add one above!</p>
@@ -31,7 +31,7 @@ Pretty simple, right? Let's make the change.
 **Uh oh!** You probably saw an error like this (the IDs will be different):
 
 ```bash
-docker: Error response from daemon: driver failed programming external connectivity on endpoint laughing_burnell 
+docker: Error response from daemon: driver failed programming external connectivity on endpoint laughing_burnell
 (bb242b2ca4d67eba76e79474fb36bb5125708ebdabd7f45c8eaf16caaabde9dd): Bind for 0.0.0.0:3000 failed: port is already allocated.
 ```
 
@@ -54,7 +54,7 @@ To remove a container, it first needs to be stopped. Then, it can be removed.
 1. Use the `docker stop` command to stop the container.
 
     ```bash
-    # Swap out <the-container-id> with the ID from docker ps
+    # Swap out <the-container-id> with the ID from docker ps. If there are multiple containers, please find the <the-container-id> with the port mapping of 0.0.0.0:3000 -> 3000
     docker stop <the-container-id>
     ```
 
