@@ -50,7 +50,7 @@ like this:
     docker image ls
     ```
 
-1. Login to your **Docker Hub** account
+1. Login to your **Docker Hub** account.
 
     ```bash
     docker login
