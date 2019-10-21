@@ -20,7 +20,7 @@ this case, you will upload a ZIP archive.
 1. [Download the zip](/assets/app.zip) and upload it to Play with Docker. As a
    tip, you can drag and drop the zip (or any other file) on to the terminal in PWD.
 
-1. Verify that the zip has been successfully copied over to your instance
+1. Verify that the zip has been successfully copied over to your instance. You should see `app.zip` in the directory
 
     ```bash
     ls
