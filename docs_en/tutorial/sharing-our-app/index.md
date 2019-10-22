@@ -44,7 +44,7 @@ like this:
     docker tag docker-101 YOUR-USER-NAME/101-todo-app
     ```
 
-1. Verify that your image has been tagged correctly.
+1. Verify that your image has been tagged correctly. You should see an image with the name `YOUR-USER-NAME/101-todo-app`.
 
     ```bash
     docker image ls
