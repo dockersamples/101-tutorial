@@ -34,6 +34,11 @@ local machine and help you see changes instantly.
 docker-compose up
 ```
 
+By default, the dev container will use the English version of the tutorial. If you wish to work on
+a different version, modify the `services.docs.build.args.LANGUAGE` value to the language you want
+to work in. Note that the build will fail if the steps below (for new languages) haven't been
+completed yet.
+
 
 ## Contributing
 

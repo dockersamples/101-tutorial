@@ -12,6 +12,7 @@ if (!languageData) {
 }
 
 const mkdocData = YAML.parse(fs.readFileSync('mkdocs.yml').toString());
+mkdocData['docs_dir'] = `/app/docs_${language}`;
 mkdocData['site_description'] = languageData.site_description;
 mkdocData.theme.language = languageData.language_code;
 

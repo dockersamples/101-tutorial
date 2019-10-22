@@ -3,11 +3,11 @@ version: "3.7"
 services:
   docs:
     build:
-      context: docs
+      context: .
       dockerfile: Dockerfile
-      target: base
-    command: mkdocs serve -a 0.0.0.0:8000
-    working_dir: /app
+      target: dev
+      args:
+        LANGUAGE: en 
     ports:
       - 8000:8000
     volumes:
