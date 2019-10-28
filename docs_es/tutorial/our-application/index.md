@@ -1,111 +1,82 @@
+Para el resto de este tutorial, trabajaremos con un simple gestor de listas de tareas (todo list) que se está ejecutando en Node. Si no estás familiarizado con Node, ¡no te preocupes! ¡No se necesita experiencia real con JavaScript!
 
-For the rest of this tutorial, we will be working with a simple todo
-list manager that is running in Node. If you're not familiar with Node,
-don't worry! No real JavaScript experience is needed!
-
-At this point, your development team is quite small and you're simply
-building an app to prove out your MVP (minimum viable product). You want
-to show how it works and what it's capable of doing without needing to
-think about how it will work for a large team, multiple developers, etc.
+En este punto, su equipo de desarrollo es bastante pequeño y usted simplemente está construyendo una aplicación para probar su MVP (producto mínimo viable). Quieres mostrar cómo funciona y lo que es capaz de hacer sin necesidad de pensar en cómo funcionará para un equipo grande, múltiples desarrolladores, etc.
 
 ![Todo List Manager Screenshot](todo-list-sample.png){: style="width:50%;" }
 { .text-center }
 
+## Introduciendo nuestra aplicación en PWD
 
-## Getting our App into PWD
+Antes de que podamos ejecutar la aplicación, necesitamos obtener el código fuente de la aplicación en el entorno Play with Docker. Para proyectos reales, puedes clonar el repositorio. Pero, en este caso, usted subirá un archivo ZIP.
 
-Before we can run the application, we need to get the application source code into 
-the Play with Docker environment. For real projects, you can clone the repo. But, in
-this case, you will upload a ZIP archive.
+1. [Descarga el zip](/assets/app.zip) y cárgalo a Play with Docker. Como consejo, puede arrastrar y soltar el zip (o cualquier otro archivo) sobre el terminal en PWD.
 
-1. [Download the zip](/assets/app.zip) and upload it to Play with Docker. As a
-   tip, you can drag and drop the zip (or any other file) on to the terminal in PWD.
+1. En el terminal PWD, extraiga el archivo zip.
 
-1. In the PWD terminal, extract the zip file.
+   ```bash
+   unzip app.zip
+   ```
 
-    ```bash
-    unzip app.zip
-    ```
+1. Cambie su directorio de trabajo actual a la nueva carpeta 'app'.
 
-1. Change your current working directory into the new 'app' folder.
+   ```bash
+   cd app/
+   ```
 
-    ```bash
-    cd app/
-    ```
+1. En este directorio, debería ver una aplicación simple basada en Node.
 
-1. In this directory, you should see a simple Node-based application.
+   ```bash
+   ls
+   package.json  spec          src           yarn.lock
+   ```
 
-    ```bash
-    ls
-    package.json  spec          src           yarn.lock
-    ```
+## Creación de la imagen del contenedor con la aplicación
 
+Para construir la aplicación, necesitamos usar un `Dockerfile`. Un Dockerfile es simplemente un script de instrucciones basado en texto que se utiliza para crear una imagen de contenedor. Si ya ha creado Dockerfiles anteriormente, es posible que aparezcan algunos defectos en el Dockerfile que se muestra a continuación. Pero, ¡no te preocupes! Los revisaremos.
 
-## Building the App's Container Image
+1. Cree un archivo llamado Dockerfile con el siguiente contenido.
 
-In order to build the application, we need to use a `Dockerfile`. A
-Dockerfile is simply a text-based script of instructions that is used to
-create a container image. If you've created Dockerfiles before, you might
-see a few flaws in the Dockerfile below. But, don't worry! We'll go over them.
+   ```dockerfile
+   FROM node:10-alpine
+   WORKDIR /app
+   COPY . .
+   RUN yarn install --production
+   CMD ["node", "/app/src/index.js"]
+   ```
 
-1. Create a file named Dockerfile with the following contents.
+1. Construya la imagen del contenedor usando el comando `docker build`.
 
-    ```dockerfile
-    FROM node:10-alpine
-    WORKDIR /app
-    COPY . .
-    RUN yarn install --production
-    CMD ["node", "/app/src/index.js"]
-    ```
+   ```bash
+   docker build -t docker-101 .
+   ```
 
-1. Build the container image using the `docker build` command.
+   Este comando usó el Dockerfile para construir una nueva imagen del contenedor. Puede que haya notado que se han descargado muchas "capas". Esto se debe a que instruimos al constructor que queríamos empezar desde la imagen `node:10-alpine`. Pero, como no teníamos eso en nuestra máquina, esa imagen necesitaba ser descargada.
 
-    ```bash
-    docker build -t docker-101 .
-    ```
+   Después de eso, copiamos en nuestra aplicación y usamos `yarn` para instalar las dependencias de nuestra aplicación. La directiva `CMD` especifica el comando por defecto que se ejecutará al iniciar un contenedor desde esta imagen.
 
-    This command used the Dockerfile to build a new container image. You might
-    have noticed that a lot of "layers" were downloaded. This is because we instructed
-    the builder that we wanted to start from the `node:10-alpine` image. But, since we
-    didn't have that on our machine, that image needed to be downloaded.
+## Iniciando el contenedor de la aplicación
 
-    After that, we copied in our application and used `yarn` to install our application's
-    dependencies. The `CMD` directive specifies the default command to run when starting
-    a container from this image.
+Ahora que tenemos una imagen, vamos a ejecutar la aplicación! Para ello, usaremos el comando `docker run` (¿recuerdas lo de antes?).
 
+1. Inicie su contenedor usando el comando `docker run`:
 
-## Starting an App Container
+   ```bash
+   docker run -dp 3000:3000 docker-101
+   ```
 
-Now that we have an image, let's run the application! To do so, we will use the `docker run`
-command (remember that from earlier?).
+   ¿Recuerdas las banderas `-d` y `-p`? Estamos ejecutando el nuevo contenedor en modo "separado" (en segundo plano) y creando un mapeo entre el puerto 3000 del host y el puerto 3000 del contenedor.
 
-1. Start your container using the `docker run` command:
+1. Abra la aplicación haciendo clic en la insignia "3000" en la parte superior de la interfaz PWD. Una vez abierto, ¡debería tener una lista de cosas por hacer vacía!
 
-    ```bash
-    docker run -dp 3000:3000 docker-101
-    ```
+   ![Empty Todo List](todo-list-empty.png){: style="width:450px;margin-top:20px;"}
+   {: .text-center }
 
-    Remember the `-d` and `-p` flags? We're running the new container in "detached" mode (in the 
-    background) and creating a mapping between the host's port 3000 to the container's port 3000.
+1. Adelante, agregue uno o dos elementos y vea que funciona como usted espera. Puede marcar las posiciones como completas y eliminarlas.
 
-1. Open the application by clicking on the "3000" badge at the top of the PWD interface. Once open,
-   you should have an empty todo list!
+En este punto, deberías tener un administrador de listas de cosas por hacer con unos cuantos elementos, ¡todos construidos por ti! Ahora, hagamos algunos cambios y aprendamos sobre el manejo de nuestros contenedores.
 
-    ![Empty Todo List](todo-list-empty.png){: style="width:450px;margin-top:20px;"}
-    {: .text-center }
+## Recapitulación
 
-1. Go ahead and add an item or two and see that it works as you expect. You can mark items as
-   complete and remove items.
+En esta breve sección, aprendimos lo básico sobre la construcción de una imagen de contenedor y creamos un Dockerfile para hacerlo. Una vez que construimos una imagen, iniciamos el contenedor y ¡vimos la aplicación en ejecución!
 
-
-At this point, you should have a running todo list manager with a few items, all built by you!
-Now, let's make a few changes and learn about managing our containers.
-
-
-## Recap
-
-In this short section, we learned the very basics about building a container image and created a
-Dockerfile to do so. Once we built an image, we started the container and saw the running app!
-
-Next, we're going to make a modification to our app and learn how to update our running application
-with a new image. Along the way, we'll learn a few other useful commands.
+A continuación, vamos a hacer una modificación a nuestra aplicación y aprender a actualizar nuestra aplicación en ejecución con una nueva imagen. En el camino, aprenderemos algunos otros comandos útiles.
