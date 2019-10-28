@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
       target: dev
       args:
-        LANGUAGE: en 
+        LANGUAGE: es 
     ports:
       - 8000:8000
     volumes:
