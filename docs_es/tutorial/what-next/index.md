@@ -1,26 +1,15 @@
 
-Although we're done with our workshop, there's still a LOT more to learn about containers!
-We're not going to go deep-dive here, but here are a few other areas to look at next!
+Aunque hemos terminado con nuestro taller, todavía hay mucho más que aprender acerca de los contenedores! No vamos a hacer una inmersión profunda aquí, pero aquí hay algunas otras áreas para ver a continuación!
 
-## Container Orchestration
+## Orquestación de contenedores
 
-Running containers in production is tough. You don't want to log into a machine and simply run a
-`docker run` or `docker-compose up`. Why not? Well, what happens if the containers die? How do you
-scale across several machines? Container orchestration solves this problem. Tools like Kubernetes,
-Swarm, Nomad, and ECS all help solve this problem, all in slightly different ways.
+El funcionamiento de los contenedores en la producción es difícil. Usted no quiere iniciar sesión en una máquina y simplemente ejecutar un `docker run` o `docker-composition up`. ¿Por qué no? Bueno, ¿qué pasa si los contenedores mueren? ¿Cómo se puede escalar a través de varias máquinas? La orquestación de contenedores resuelve este problema. Herramientas como Kubernetes, Swarm, Nomad y ECS ayudan a resolver este problema, todas estas herramientas lo hacen un poco diferente.
 
-The general idea is that you have "managers" who receive **expected state**. This state might be
-"I want to run two instances of my web app and expose port 80." The managers then look at all of the
-machines in the cluster and delegate work to "worker" nodes. The managers watch for changes (such as
-a container quitting) and then work to make **actual state** reflect the expected state.
+La idea general es que usted tiene "gestores" que reciben **estado esperado**. Este estado podría ser "Quiero ejecutar dos instancias de mi aplicación web y exponer el puerto 80." Los gestores entonces miran todas las máquinas en el cluster y delegan el trabajo a los nodos "trabajadores". Los gestores están atentos a los cambios (como la salida de un contenedor) y luego trabajan para hacer que el **estado real** refleje el estado esperado.
 
 
-## Cloud Native Computing Foundation Projects
+## Proyectos de la Cloud Native Computing Foundation
 
-The CNCF is a vendor-neutral home for various open-source projects, including Kubernetes, Prometheus, 
-Envoy, Linkerd, NATS, and more! You can view the [graduated and incubated projects here](https://www.cncf.io/projects/)
-and the entire [CNCF Landscape here](https://landscape.cncf.io/). There are a LOT of projects to help
-solve problems around monitoring, logging, security, image registries, messaging, and more!
+La CNCF es un proveedor neutral para varios proyectos de código abierto, incluyendo  Kubernetes, Prometheus,  Envoy, Linkerd, NATS, y más! Puede ver los [proyectos graduados e incubados aquí](https://www.cncf.io/projects/) y todo [lo relacionado a CNCF](https://landscape.cncf.io/). Hay un montón de proyectos para ayudar a resolver problemas de monitoreo, registro, seguridad, registros de imágenes, mensajería y más!
 
-So, if you're new to the container landscape and cloud-native application development, welcome! Please
-connect to the community, ask questions, and keep learning! We're excited to have you!
+Por lo tanto, si es nuevo en el mundo de los contenedores y en el desarrollo de aplicaciones nativas de la nube, ¡bienvenido! Por favor, conéctese con la comunidad, haga preguntas y siga aprendiendo! Estamos emocionados de tenerte!
