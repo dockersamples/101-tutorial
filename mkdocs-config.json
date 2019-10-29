@@ -118,43 +118,43 @@
             },
             "Our Application": {
                 "title": "Nuestra aplicación",
-                "dir_name": "our-application"
+                "dir_name": "nuestra-aplicacion"
             },
             "Updating our App": {
                 "title": "Actualizando nuestra aplicación",
-                "dir_name": "updating-our-app"
+                "dir_name": "actualizando-nuestra-aplicacion"
             },
             "Sharing our App": {
                 "title": "Compartiendo nuestra aplicación",
-                "dir_name": "sharing-our-app"
+                "dir_name": "compartiendo-nuestra-aplicacion"
             },
             "Persisting our DB": {
                 "title": "Persistiendo nuestra base de datos",
-                "dir_name": "persisting-our-data"
+                "dir_name": "persistiendo-nuestra-base-de-datos"
             },
             "Using Bind Mounts": {
                 "title": "Usando Bind Mounts",
-                "dir_name": "using-bind-mounts"
+                "dir_name": "usando-bind-mounts"
             },
             "Multi-Container Apps": {
                 "title": "Aplicaciones Multi-Contenedor",
-                "dir_name": "multi-container-apps"
+                "dir_name": "aplicaciones-multi-contenedor"
             },
             "Using Docker Compose": {
                 "title": "Usando Docker Compose",
-                "dir_name": "using-docker-compose"
+                "dir_name": "usando-docker-compose"
             },
             "Image Building Best Practices": {
                 "title": "Buenas prácticas para construcción de imagenes",
-                "dir_name": "image-building-best-practices"
+                "dir_name": "buenas-practicas-para-construccion-de-imagenes"
             },
             "What Next?": {
                 "title": "¿Qué sigue?",
-                "dir_name": "what-next"
+                "dir_name": "que-sigue"
             },
             "PWD Tips": {
                 "title": "Consejos para usar PWD",
-                "dir_name": "pwd-tips"
+                "dir_name": "consejos-para-usar-pwd"
             }
         }
     }
