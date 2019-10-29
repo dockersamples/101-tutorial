@@ -1,17 +1,15 @@
 
-## Image Layering
+## Capas de una imagen
 
-Did you know that you can look at what makes up an image? Using the `docker image history`
-command, you can see the command that was used to create each layer within an image.
+¿Sabías que puedes ver lo que constituye una imagen? Usando el comando `docker image history`, puede ver el comando que se usó para crear cada capa dentro de una imagen.
 
-1. Use the `docker image history` command to see the layers in the `docker-101` image you
-   created earlier in the tutorial.
+1. Utilice el comando `docker image history` para ver las capas de la imagen `docker-101` que creó anteriormente en el tutorial.
 
     ```bash
     docker image history
     ```
 
-    You should get output that looks something like this (dates/IDs may be different).
+    Debería obtener una salida que se parezca a esto (las fechas/identeficadores pueden ser diferentes).
 
     ```plaintext
     IMAGE               CREATED             CREATED BY                                      SIZE                COMMENT
@@ -30,26 +28,22 @@ command, you can see the command that was used to create each layer within an im
     <missing>           5 months ago        /bin/sh -c #(nop) ADD file:a86aea1f3a7d68f6a…   5.53MB  
     ```
 
-    Each of the lines represents a layer in the image. The display here shows the base at the bottom with
-    the newest layer at the top. Using this, you can also quickly see the size of each layer, helping 
-    diagnose large images.
+    Cada una de las líneas representa una capa en la imagen. La pantalla muestra aquí la base en la parte inferior con la capa más reciente en la parte superior. Usando esto, también puede ver rápidamente el tamaño de cada capa, ayudando a diagnosticar imágenes grandes.
 
-1. You'll notice that several of the lines are truncated. If you add the `--no-trunc` flag, you'll get the
-   full output (yes... funny how you use a truncated flag to get untruncated output, huh?)
+1. Notarás que varias de las líneas están truncadas. Si añades la bandera `--no-trunc`, obtendrás la salida completa (sí.... es curioso cómo usas una bandera truncada para obtener una salida no truncada, ¿eh?)
 
     ```bash
     docker image history --no-trunc docker-101
     ```
 
 
-## Layer Caching
+## Almacenamiento de Capas en Caché
 
-Now that you've seen the layering in action, there's an important lesson to learn to help increase build
-times for your container images.
+Ahora que ha visto las capas en acción, hay una lección importante que aprender para ayudar a aumentar los tiempos de construcción de sus imágenes de contenedor.
 
-> Once a layer changes, all downstream layers have to be recreated as well
+> Una vez que una capa cambia, todas las capas posteriores tienen que ser recreadas también.
 
-Let's look at the Dockerfile we were using one more time...
+Veamos el Dockerfile que estábamos usando una vez más....
 
 ```dockerfile
 FROM node:10-alpine
@@ -59,16 +53,11 @@ RUN yarn install --production
 CMD ["node", "/app/src/index.js"]
 ```
 
-Going back to the image history output, we see that each command in the Dockerfile becomes a new layer in the image.
-You might remember that when we made a change to the image, the yarn dependencies had to be reinstalled. Is there a
-way to fix this? It doesn't make much sense to ship around the same dependencies every time we build, right?
+Volviendo a la salida del historial de la imagen, vemos que cada comando en el Dockerfile se convierte en una nueva capa de la imagen. Puede que recuerdes que cuando hicimos un cambio en la imagen, las dependencias del hilo tuvieron que ser reinstaladas. ¿Hay alguna manera de arreglar esto? No tiene mucho sentido enviar alrededor de las mismas dependencias cada vez que construimos, ¿verdad?
 
-To fix this, we need to restructure our Dockerfile to help support the caching of the dependencies. For Node-based
-applications, those dependencies are defined in the `package.json` file. So, what if we copied only that file in first,
-install the dependencies, and _then_ copy in everything else? Then, we only recreate the yarn dependencies if there was
-a change to the `package.json`. Make sense?
+Para arreglar esto, necesitamos reestructurar nuestro Dockerfile para ayudar a soportar el almacenamiento en caché de las dependencias. Para aplicaciones basadas en Node, esas dependencias se definen en el archivo `package.json`. Entonces, ¿qué pasa si copiamos sólo ese archivo en primer lugar, instalamos las dependencias, y luego copiamos en todo lo demás? Entonces, sólo recreamos las dependencias de yarn si hubo un cambio en el `package.json`. ¿Tiene sentido?
 
-1. Update the Dockerfile to copy in the `package.json` first, install dependencies, and then copy everything else in.
+1. Actualice el archivo Docker para copiar primero en `package.json`, instale las dependencias y luego copie todo lo demás.
 
     ```dockerfile hl_lines="3 4 5"
     FROM node:10-alpine
@@ -79,13 +68,13 @@ a change to the `package.json`. Make sense?
     CMD ["node", "/app/src/index.js"]
     ```
 
-1. Build a new image using `docker build`.
+1. Construya una nueva imagen usando `docker build`.
 
     ```bash
     docker build -t docker-101 .
     ```
 
-    You should see output like this...
+    Debería ver una salida como esta....
 
     ```plaintext
     Sending build context to Docker daemon  219.1kB
@@ -118,11 +107,11 @@ a change to the `package.json`. Make sense?
     Successfully tagged docker-101:latest
     ```
 
-    You'll see that all layers were rebuilt. Perfectly fine since we changed the Dockerfile quite a bit.
+    Verás que todas las capas fueron reconstruidas. Perfectamente bien desde que cambiamos un poco el Dockerfile.
 
-1. Now, make a change to the `src/static/index.html` file (like change the `<title>` to say "The Awesome Todo App").
+1. Ahora, haga un cambio en el archivo `src/static/index.html` (como cambiar el `<title>` para decir "La impresionante aplicación Todo").
 
-1. Build the Docker image now using `docker build` again. This time, your output should look a little different.
+1. Construya la imagen Docker ahora usando `docker build` de nuevo. Esta vez, el resultado debería ser un poco diferente.
 
     ```plaintext hl_lines="5 8 11"
     Sending build context to Docker daemon  219.1kB
@@ -147,24 +136,19 @@ a change to the `package.json`. Make sense?
     Successfully tagged docker-101:latest
     ```
 
-    First off, you should notice that the build was MUCH faster! And, you'll see that steps 1-4 all have
-    `Using cache`. So, hooray! We're using the build cache. Pushing and pulling this image and updates to it
-    will be much faster as well. Hooray!
+    En primer lugar, usted debe notar que la construcción fue MUCHO más rápido! Y, verá que todos los pasos 1-4 tienen `Usar caché`. Así que, ¡hurra! Estamos usando la caché de construcción. Subiendo (push) esta imagen y descargando (pull) las actualizaciones debería ser mucho más rápido también. ¡Hurra!
 
 
-## Multi-Stage Builds
+## Construcción Multi-Stage
 
-While we're not going to dive into it too much in this tutorial, multi-stage builds are an incredibly powerful
-tool to help use multiple stages to create an image. There are several advantages for them:
+Aunque no vamos a profundizar demasiado en ello en este tutorial, las construcciones multi-stage son una herramienta increíblemente poderosa para ayudar a utilizar múltiples etapas para crear una imagen. Hay varias ventajas para ellos:
 
-- Separate build-time dependencies from runtime dependencies
-- Reduce overall image size by shipping _only_ what your app needs to run
+- Separar las dependencias de tiempo de construcción de las dependencias de tiempo de ejecución.
+- Reduzca el tamaño total de la imagen enviando _solamente_ lo que su aplicación necesita para ejecutarse
 
-### Maven/Tomcat Example
+### Ejemplo de Maven/Tomcat
 
-When building Java-based applications, a JDK is needed to compile the source code to Java bytecode. However,
-that JDK isn't needed in production. Also, you might be using tools like Maven or Gradle to help build the app.
-Those also aren't needed in our final image. Multi-stage builds help.
+Cuando se crean aplicaciones basadas en Java, se necesita un JDK para compilar el código fuente en código bytecode Java. Sin embargo, ese JDK no es necesario en la producción. Además, es posible que estés usando herramientas como Maven o Gradle para ayudar a construir la aplicación. Estos tampoco son necesarios en nuestra imagen final. Construir esta imagen usando Multi-stage puede ser de gran ayuda.
 
 ```dockerfile
 FROM maven AS build
@@ -176,16 +160,12 @@ FROM tomcat
 COPY --from=build /app/target/file.war /usr/local/tomcat/webapps 
 ```
 
-In this example, we use one stage (called `build`) to perform the actual Java build using Maven. In the second
-stage (starting at `FROM tomcat`), we copy in files from the `build` stage. The final image is only the last stage
-being created (which can be overridden using the `--target` flag).
+En este ejemplo, usamos una etapa (llamada `build`) para realizar la construcción real de Java usando Maven. En la segunda etapa (a partir de `FROM tomcat`), copiamos en archivos de la etapa `build`. La imagen final es sólo la última etapa que se está creando (que puede ser anulada usando la bandera ``--target`).
 
 
-### React Example
+### Ejemplo de React
 
-When building React applications, we need a Node environment to compile the JS code (typically JSX), SASS stylesheets,
-and more into static HTML, JS, and CSS. If we aren't doing server-side rendering, we don't even need a Node environment
-for our production build. Why not ship the static resources in a static nginx container?
+Cuando creamos aplicaciones React, necesitamos un entorno de Node para compilar el código JS (típicamente JSX), hojas de estilo SASS, y más en HTML estático, JS, y CSS. Si no estamos haciendo renderizado del lado del servidor, ni siquiera necesitamos un entorno de Node para nuestra aplicación en producción. ¿Por qué no enviar los recursos estáticos en un contenedor estático de nginx?
 
 ```dockerfile
 FROM node:10 AS build
@@ -200,13 +180,10 @@ FROM nginx:alpine
 COPY --from=build /app/build /usr/share/nginx/html
 ```
 
-Here, we are using a `node:10` image to perform the build (maximizing layer caching) and then copying the output
-into an nginx container. Cool, huh?
+Aquí, estamos usando una imagen `node:10` para realizar la construcción (maximizando el almacenamiento en caché de capas) y luego copiando la salida en un contenedor nginx. Genial, ¿eh?
 
 
-## Recap
+## Recapitulación
 
-By understanding a little bit about how images are structured, we can build images faster and ship fewer changes.
-Multi-stage builds also help us reduce overall image size and increase final container security by separating
-build-time dependencies from runtime dependencies.
+Al entender un poco sobre cómo están estructuradas las imágenes, podemos construirlas más rápido y enviar menos cambios. Las construcciones multietapa también nos ayudan a reducir el tamaño general de la imagen y a aumentar la seguridad del contenedor final al separar las dependencias de tiempo de construcción de las dependencias de tiempo de ejecución.
 
