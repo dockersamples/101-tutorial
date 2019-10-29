@@ -1,44 +1,36 @@
 
-Up to this point, we have been working with single container apps. But, we now want to add MySQL to the
-application stack. The following question often arises - "Where will MySQL run? Install it in the same
-container or run it separately?" In general, **each container should do one thing and do it well.** A few
-reasons:
+Hasta este punto, hemos estado trabajando con aplicaciones de contenedores individuales. Pero, ahora queremos añadir MySQL a la pila de aplicaciones. A menudo se plantea la siguiente pregunta: "¿Dónde se ejecutará MySQL? ¿Instalarlo en el mismo contenedor o ejecutarlo por separado?" En general, **cada contenedor debe hacer una cosa y hacerlo bien.** Algunas razones:
 
-- There's a good chance you'd have to scale APIs and front-ends differently than databases
-- Separate containers let you version and update versions in isolation
-- While you may use a container for the database locally, you may want to use a managed service
-  for the database in production. You don't want to ship your database engine with your app then.
-- Running multiple processes will require a process manager (the container only starts one process), 
-  which adds complexity to container startup/shutdown
+- Es muy probable que tenga que escalar las API y los interfaces de usuario de forma diferente a las bases de datos.
+- Los contenedores separados le permiten versionar y actualizar versiones de forma aislada.
+- Si bien puede utilizar un contenedor para la base de datos localmente, es posible que desee utilizar un servicio gestionado para la base de datos en producción. Por esta razón no sería buena idea enviar su motor de base de datos con su aplicación.
+- La ejecución de múltiples procesos requerirá un gestor de procesos (el contenedor sólo inicia un proceso), lo que añade complejidad al inicio/parada del contenedor.
 
-And there are more reasons. So, we will update our application to work like this:
+Y hay más razones. Por lo tanto, actualizaremos nuestra aplicación para que funcione así:
 
 ![Todo App connected to MySQL container](multi-app-architecture.png)
 {: .text-center }
 
 
-## Container Networking
+## Redes de Contenedores
 
-Remember that containers, by default, run in isolation and don't know anything about other processes
-or containers on the same machine. So, how do we allow one container to talk to another? The answer is
-**networking**. Now, you don't have to be a network engineer (hooray!). Simply remember this rule...
+Recuerde que los contenedores, por defecto, se ejecutan de forma aislada y no saben nada sobre otros procesos o contenedores en la misma máquina. Entonces, ¿cómo permitimos que un contenedor hable con otro? La respuesta es **networking**. Ahora, usted no tiene que ser un ingeniero de redes (¡hurra!). Simplemente recuerde esta regla...
 
-> If two containers are on the same network, they can talk to each other. If they aren't, they can't.
+> Si dos contenedores están en la misma red, pueden hablar entre sí. Si no están en la misma red, no pueden.
 
 
-## Starting MySQL
+## Inicio de MySQL
 
-There are two ways to put a container on a network: 1) Assign it at start or 2) connect an existing container.
-For now, we will create the network first and attach the MySQL container at startup.
+Hay dos maneras de poner un contenedor en una red: 1) Asignarlo al inicio o 2) conectar un contenedor existente.
+Por ahora, primero crearemos la red y asignaremos el contenedor MySQL al inicio.
 
-1. Create the network.
+1. Crear la red
 
     ```bash
     docker network create todo-app
     ```
 
-1. Start a MySQL container and attach it the network. We're also going to define a few environment variables that the
-  database will use to initialize the database (see the "Environment Variables" section in the [MySQL Docker Hub listing](https://hub.docker.com/_/mysql/)).
+1. Inicie un contenedor MySQL y conéctelo a la red. También vamos a definir algunas variables de entorno que la base de datos utilizará para inicializar la base de datos (ver la sección "Variables de entorno" en la sección [MySQL Docker Hub listing](https://hub.docker.com/_/mysql/)).
 
     ```bash
     docker run -d \
@@ -49,27 +41,24 @@ For now, we will create the network first and attach the MySQL container at star
         mysql:5.7
     ```
 
-    You'll also see we specified the `--network-alias` flag. We'll come back to that in just a moment.
+    También verás que especificamos la bandera `--network-alias`. Volveremos a eso en un momento.
 
-    !!! info "Pro-tip"
-        You'll notice we're using a volume named `todo-mysql-data` here and mounting it at `/var/lib/mysql`, which is
-        where MySQL stores its data. However, we never ran a `docker volume create` command. Docker recognizes we want
-        to use a named volume and creates one automatically for us.
+    !!! info "Consejo"
+        Notarás que estamos usando un volumen llamado `todo-mysql-data` aquí y lo estamos montando en `/var/lib/mysql`, que es donde MySQL almacena sus datos. Sin embargo, nunca ejecutamos un comando `docker volume create`. Docker reconoce que queremos usar un volumen con nombre y lo crea automáticamente para nosotros.
 
-1. To confirm we have the database up and running, connect to the database and verify it connects.
+1. Para confirmar que tenemos la base de datos en funcionamiento, conéctese a la base de datos y verifique que se conecte.
 
     ```bash
     docker exec -it <mysql-container-id> mysql -p
     ```
 
-    When the password prompt comes up, type in **secret**. In the MySQL shell, list the databases and verify
-    you see the `todos` database.
+    Cuando aparezca el mensaje de contraseña, escriba **secret**. En el intérprete de comandos MySQL, haga una lista de las bases de datos y verifique que vea la base de datos `todos`.
 
     ```cli
     mysql> SHOW DATABASES;
     ```
 
-    You should see output that looks like this:
+    Debería ver en la salida algo así:
 
     ```plaintext
     +--------------------+
@@ -84,32 +73,28 @@ For now, we will create the network first and attach the MySQL container at star
     5 rows in set (0.00 sec)
     ```
 
-    Hooray! We have our `todos` database and it's ready for us to use!
+    ¡Hurra! Tenemos nuestra base de datos de "todos" y está lista para que la utilicemos!
 
 
-## Connecting to MySQL
+## Conectando a MySQL
 
-Now that we know MySQL is up and running, let's use it! But, the question is... how? If we run
-another container on the same network, how do we find the container (remember each container has its own IP
-address)?
+Ahora que sabemos que MySQL está funcionando, ¡usémoslo! Pero, la pregunta es... ¿cómo? Si ejecutamos otro contenedor en la misma red, ¿cómo podemos encontrar el contenedor (recuerde que cada contenedor tiene su propia dirección IP)?
 
-To figure it out, we're going to make use of the [nicolaka/netshoot](https://github.com/nicolaka/netshoot) container,
-which ships with a _lot_ of tools that are useful for troubleshooting or debugging networking issues.
+Para averiguarlo, vamos a hacer uso del contenedor[nicolaka/netshoot](https://github.com/nicolaka/netshoot),que incluye una gran cantidad de herramientas que son útiles para la resolución de problemas o la depuración de problemas de red.
 
-1. Start a new container using the nicolaka/netshoot image. Make sure to connect it to the same network.
+1. Inicie un nuevo contenedor utilizando la imagen nicolaka/netshoot. Asegúrese de conectarlo a la misma red.
 
     ```bash
     docker run -it --network todo-app nicolaka/netshoot
     ```
 
-1. Inside the container, we're going to use the `dig` command, which is a useful DNS tool. We're going to look up
-   the IP address for the hostname `mysql`.
+1. Dentro del contenedor, vamos a usar el comando `dig`, que es una herramienta de DNS muy útil. Vamos a buscar la dirección IP del nombre de host `mysql`.
 
     ```bash
     dig mysql
     ```
 
-    And you'll get an output like this...
+    Y obtendrá una salida como ésta....
 
     ```text
     ; <<>> DiG 9.14.1 <<>> mysql
@@ -130,42 +115,31 @@ which ships with a _lot_ of tools that are useful for troubleshooting or debuggi
     ;; MSG SIZE  rcvd: 44
     ```
 
-    In the "ANSWER SECTION", you will see an `A` record for `mysql` that resolves to `172.23.0.2`
-    (your IP address will most likely have a different value). While `mysql` isn't normally a valid hostname,
-    Docker was able to resolve it to the IP address of the container that had that network alias (remember the
-    `--network-alias` flag we used earlier?).
+    En "ANSWER SECTION", verá un registro `A` para `mysql` que se resuelve a `172.23.0.2` (es muy probable que su dirección IP tenga un valor diferente). Aunque `mysql` no suele ser un nombre de host válido, Docker fue capaz de resolverlo a la dirección IP del contenedor que tenía ese alias de red (¿recuerdas la bandera `--network-alias` que usamos antes?).
 
-    What this means is... our app only simply needs to connect to a host named `mysql` and it'll talk to the
-    database! It doesn't get much simpler than that!
+    Lo que esto significa es que.... nuestra aplicación sólo necesita conectarse a un host llamado `mysql` y hablará con la base de datos! No hay nada más sencillo que eso!
 
 
-## Running our App with MySQL
+## Ejecutando nuestra aplicación con MySQL
 
-The todo app supports the setting of a few environment variables to specify MySQL connection settings. They are:
+La aplicación todo soporta la configuración de algunas variables de entorno para especificar la configuración de la conexión MySQL. Estas variables de entorno son:
 
-- `MYSQL_HOST` - the hostname for the running MySQL server
-- `MYSQL_USER` - the username to use for the connection
-- `MYSQL_PASSWORD` - the password to use for the connection
-- `MYSQL_DB` - the database to use once connected
+- `MYSQL_HOST` - el nombre de host para el servidor MySQL en ejecución
+- `MYSQL_USER` - el nombre de usuario que se utilizará para la conexión
+- `MYSQL_PASSWORD` - la contraseña a utilizar para la conexión
+- `MYSQL_DB` - la base de datos a utilizar una vez conectada
 
 !!! warning Setting Connection Settings via Env Vars
-    While using env vars to set connection settings is generally ok for development, it is **HIGHLY DISCOURAGED**
-    when running applications in production. Diogo Monica, the former lead of security at Docker, 
-    [wrote a fantastic blog post](https://diogomonica.com/2017/03/27/why-you-shouldnt-use-env-variables-for-secret-data/)
-    explaining why. 
+    Mientras que el uso de env vars para establecer los ajustes de conexión es generalmente aceptable para el desarrollo, es **ALTAMENTE DESCARTADO** cuando se ejecutan aplicaciones en producción. Diogo Mónica, antiguo jefe de seguridad de Docker, [escribió una fantástica entrada en el blog](https://diogomonica.com/2017/03/27/why-you-shouldnt-use-env-variables-for-secret-data/) explicando lo antes mencionado. 
     
-    A more secure mechanism is to use the secret support provided by your container orchestration framework. In most cases,
-    these secrets are mounted as files in the running container. You'll see many apps (including the MySQL image and the todo app)
-    also support env vars with a `_FILE` suffix to point to a file containing the file. 
+    Un mecanismo más seguro es utilizar el soporte secreto proporcionado por su estructura de orquestación de contenedores. En la mayoría de los casos, estos secretos se montan como archivos en el contenedor en ejecución. Verás muchas aplicaciones (incluyendo la imagen MySQL y la aplicación todo) que también soportan env vars con un sufijo `_FILE` para apuntar a un archivo que contiene el archivo. 
     
-    As an example, setting the `MYSQL_PASSWORD_FILE` var will cause the app to use the contents of the referenced file 
-    as the connection password. Docker doesn't do anything to support these env vars. Your app will need to know to look for
-    the variable and get the file contents.
+    Por ejemplo, si establece `MYSQL_PASSWORD_FILE` var, la aplicación utilizará el contenido del archivo referenciado como contraseña de conexión. Docker no hace nada para apoyar a estos equipos. Su aplicación necesitará saber como buscar la variable y obtener el contenido del archivo.
 
 
-With all of that explained, let's start our dev-ready container!
+Con todo esto explicado, ¡empecemos nuestro contenedor dev-ready!
 
-1. We'll specify each of the environment variables above, as well as connect the container to our app network.
+1. Especificaremos cada una de las variables de entorno anteriores y conectaremos el contenedor a nuestra red de aplicaciones.
 
     ```bash hl_lines="3 4 5 6 7"
     docker run -dp 3000:3000 \
@@ -179,8 +153,7 @@ With all of that explained, let's start our dev-ready container!
       sh -c "yarn install && yarn run dev"
     ```
 
-1. If we look at the logs for the container (`docker logs <container-id>`), we should see a message indicating it's
-   using the mysql database.
+1. Si miramos los registros del contenedor (`docker logs <container-id>`), veremos un mensaje indicando que está usando la base de datos mysql.
 
     ```plaintext hl_lines="7"
     # Previous log messages omitted
@@ -193,10 +166,9 @@ With all of that explained, let's start our dev-ready container!
     Listening on port 3000
     ```
 
-1. Open the app in your browser and add a few items to your todo list.
+1. Abre la aplicación en tu navegador y añade algunos elementos a tu lista de tareas.
 
-1. Connect to the mysql database and prove that the items are being written to the database. Remember, the password
-   is **secret**.
+1. Conéctese a la base de datos mysql y compruebe que los elementos se están escribiendo en la base de datos. Recuerde, la contraseña es **secret**.
 
     ```bash
     docker exec -ti <mysql-container-id> mysql -p todos
@@ -214,20 +186,15 @@ With all of that explained, let's start our dev-ready container!
     +--------------------------------------+--------------------+-----------+
     ```
 
-    Obviously, your table will look different because it has your items. But, you should see them stored there!
+    Obviamente, su tabla se verá diferente porque tiene sus propios items. Entonces, ¡deberías verlos almacenados allí!
 
 
-## Recap
+## Recapitulación
 
-At this point, we have an application that now stores its data in an external database running in a separate
-container. We learned a little bit about container networking and saw how service discovery can be performed
-using DNS.
+En este punto, tenemos una aplicación que ahora almacena sus datos en una base de datos externa que se ejecuta en un contenedor separado. Aprendimos un poco sobre redes de contenedores y vimos cómo se puede realizar la detección de servicios utilizando DNS.
 
-But, there's a good chance you are starting to feel a little overwhelmed with everything you need to do to start up
-this application. We have to create a network, start containers, specify all of the environment variables, expose
-ports, and more! That's a lot to remember and it's certainly making things harder to pass along to someone else.
+Pero, hay una buena posibilidad de que se esté empezando a sentir un poco abrumado con todo lo que necesita hacer para iniciar esta aplicación. Tenemos que crear una red, iniciar contenedores, especificar todas las variables de entorno, exponer puertos, y mucho más! Eso es mucho para recordar y ciertamente está haciendo que las cosas sean más difíciles de pasar a otra persona.
 
-In the next section, we'll talk about Docker Compose. With Docker Compose, we can share our application stacks in a
-much easier way and let others spin them up with a single (and simple) command!
+En la siguiente sección, hablaremos sobre Docker Compose. Con Docker Compose, podemos compartir nuestras pilas de aplicaciones de una forma mucho más fácil y dejar que otros las giren con un único (y simple) comando!
 
 

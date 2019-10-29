@@ -137,7 +137,7 @@
                 "dir_name": "using-bind-mounts"
             },
             "Multi-Container Apps": {
-                "title": "Aplicaciones Multi-Container",
+                "title": "Aplicaciones Multi-Contenedor",
                 "dir_name": "multi-container-apps"
             },
             "Using Docker Compose": {
