@@ -1,131 +1,103 @@
 
-In case you didn't notice, our todo list is being wiped clean every single time
-we launch the container. Why is this? Let's dive into how the container is working.
+En caso de que no lo hayas notado, nuestra lista de cosas por hacer está siendo limpiada cada vez que lanzamos el contenedor. ¿Por qué sucede esto? Vamos a ver cómo funciona el contenedor.
 
-## The Container's Filesystem
+## El sistema de archivos del contenedor
 
-When a container runs, it uses the various layers from an image for its filesystem.
-Each container also gets its own "scratch space" to create/update/remove files. Any
-changes won't be seen in another container, _even if_ they are using the same image.
+Cuando un contenedor se ejecuta, utiliza las diferentes capas de una imagen para su sistema de archivos. Cada contenedor también tiene su propio "espacio" para crear/actualizar/quitar archivos. Cualquier cambio no se verá en otro contenedor, _incluso si_ están usando la misma imagen.
 
-!!! todo
-    Image about filesystem here
+ ![Sistemas de archivos de un contenedor](sistemas-de-archivos-de-un-contenedor.png){: style="width: 70%;" }
+    {: .text-center }
 
 
-### Seeing this in Practice
+### Veamos esto en la práctica
 
-To see this in action, we're going to start two containers and create a file in each.
-What you'll see is that the files created in one container aren't available in another.
+Para ver esto en acción, vamos a iniciar dos contenedores y crear un archivo en cada uno. Lo que verá es que los archivos creados en un contenedor no están disponibles en otro.
 
-1. Start a `ubuntu` container that will create a file named `/data.txt` with a random number
-   between 1 and 10000.
+1. Inicie un contenedor `ubuntu` que creará un archivo llamado `/data.txt` con un número aleatorio entre 1 y 10000.
 
     ```bash
     docker run -d ubuntu bash -c "shuf -i 1-10000 -n 1 -o /data.txt && tail -f /dev/null"
     ```
 
-    In case you're wondering about the command, we're starting a bash shell and invoking two
-    commands (why we have the `&&`). The first portion picks a single random number and writes
-    it to `/data.txt`. The second command is simply watching a file to keep the container running.
+    En caso de que se esté preguntando por el comando, estamos iniciando un shell bash e invocando dos comandos (por qué tenemos el `&&`). La primera parte escoge un único número aleatorio y lo escribe en `/data.txt`. El segundo comando es simplemente mirar un archivo para mantener el contenedor funcionando.
 
-1. Validate we can see the output by `exec`'ing into the container. To do so, you need to get the
-   container's ID (use `docker ps` to get it).
+1. Para validar el resultado, podemos ver la salida por `exec` en el contenedor. Para ello, necesita obtener el ID del contenedor (utilice `docker ps` para obtenerlo).
 
     ```bash
-    docker exec <container-id> cat /data.txt
+    docker exec <id-del-contenedor> cat /data.txt
     ```
 
-    You should see a random number!
+    Deberías ver un número al azar
 
-1. Now, let's start another `ubuntu` container (the same image) and we'll see we don't have the same
-   file.
+1. Ahora, vamos a empezar otro contenedor `ubuntu` (la misma imagen) y veremos que no tenemos el mismo archivo.
 
     ```bash
     docker run -it ubuntu ls /
     ```
 
-    And look! There's no `data.txt` file there! That's because it was written to the scratch space for
-    only the first container.
+    ¡Y mira! No hay ningún archivo `data.txt` allí. Esto se debe a que sólo fue escrito en el espacio del primer contenedor.
 
-1. Go ahead and remove the first container using the `docker rm -f` command.
+1. Adelante, proceda a eliminar el primer contenedor usando el comando `docker rm -f <id-del-contenedor>`.
 
 
-## Container Volumes
+## Volúmenes de Contenedores
 
-With the previous experiment, we saw that each container is effectively read-only. While containers
-can create, update, and delete files, those changes are lost when the container is removed and are isolated
-to that container. With volumes, we can change all of this.
+Con el experimento anterior, vimos que cada contenedor es efectivamente de sólo lectura. Mientras que los contenedores pueden crear, actualizar y eliminar archivos, esos cambios se pierden cuando se elimina el contenedor. Con los volúmenes, podemos cambiar todo esto.
 
-[Volumes](https://docs.docker.com/storage/volumes/) provide the ability to connect specific filesystem paths of 
-the container back to the host machine. If a directory in the container is mounted, changes in that
-directory are also seen on the host machine. If we mount that same directory across container restarts, we'd see
-the same files.
+[Volúmenes](https://docs.docker.com/storage/volumes/) proporcionan la capacidad de conectar rutas específicas del sistema de archivos del contenedor de nuevo a la máquina anfitriona. Si se monta un directorio en el contenedor, los cambios en ese directorio también se ven en el equipo host. Si montamos ese mismo directorio en los reinicios del contenedor, veremos los mismos archivos.
 
-There are two main types of volumes. We will eventually use both, but we will start with **named volumes**.
+Hay dos tipos principales de volúmenes. Eventualmente usaremos ambos, pero empezaremos con **volúmenes nombrados**.
 
 
 
-## Persisting our Todo Data
+## Persistiendo datos de nuestro Gestor de Tareas (todo app)
 
-By default, the todo app stores its data in a [SQLite Database](https://www.sqlite.org/index.html) at
-`/etc/todos/todo.db`. If you're not familiar with SQLite, no worries! It's simply a relational database in 
-which all of the data is stored in a single file. While this isn't the best for large-scale applications,
-it works for small demos. We'll talk about switching this to an actual database engine later.
+Por defecto, la aplicación "todo app" almacena sus datos en un archivo de base de datos [SQLite](https://www.sqlite.org/index.html) en `/etc/todos/todo.db`. Si no estás familiarizado con SQLite, ¡no te preocupes! Es simplemente una base de datos relacional en la que todos los datos se almacenan en un único archivo. Aunque esto no es lo mejor para aplicaciones a gran escala, funciona para pequeñas demostraciones. Hablaremos de cambiar esto a un motor de base de datos real más tarde.
 
-With the database being a single file, if we can persist that file on the host and make it available to the
-next container, it should be able to pick up where the last one left off. By creating a volume and attaching
-(often called "mounting") it to the directory the data is stored in, we can persist the data. As our container 
-writes to the `todo.db` file, it will be persisted to the host in the volume.
+Con la base de datos siendo un solo archivo, si podemos mantener ese archivo en el host y ponerlo a disposición del siguiente contenedor, debería ser capaz de retomarlo donde lo dejó el último. Creando un volumen y adjuntándolo (a menudo llamado "montaje") al directorio en el que se almacenan los datos, podemos persistir en los datos. Mientras nuestro contenedor escribe en el archivo `todo.db`, persistirá en el host del volumen.
 
-As mentioned, we are going to use a **named volume**. Think of a named volume as simply a bucket of data. 
-Docker maintains the physical location on the disk and you only need to remember the name of the volume. 
-Every time you use the volume, Docker will make sure the correct data is provided.
+Como se mencionó anteriormente, vamos a usar un **volumen nombrado**. Piense en un volumen nombrado como un simple cubo de datos.  Docker mantiene la ubicación física en el disco y sólo necesita recordar el nombre del volumen.  Cada vez que utilice el volumen, Docker se asegurará de que se proporcionen los datos correctos.
 
-1. Create a volume by using the `docker volume create` command.
+1. Cree un volumen utilizando el comando `docker volume create`.
 
     ```bash
     docker volume create todo-db
     ```
 
-1. Start the todo container, but add the `-v` flag to specify a volume mount. We will use the named volume and mount
-   it to `/etc/todos`, which will capture all files created at the path.
+1. Inicie el contenedor `docker-101`, pero añada el indicador `-v` para especificar un montaje de volumen. Usaremos el volumen nombrado y lo montaremos en `/etc/todos`, que capturará todos los archivos creados en la ruta.
 
     ```bash
     docker run -dp 3000:3000 -v todo-db:/etc/todos docker-101
     ```
 
-1. Once the container starts up, open the app and add a few items to your todo list.
+1. Una vez que el contenedor se inicie, abra la aplicación y añada algunos elementos a su lista de tareas pendientes.
 
     ![Items added to todo list](items-added.png){: style="width: 55%; " }
     {: .text-center }
 
-1. Remove the container for the todo app. Use `docker ps` to get the ID and then `docker rm -f <id>` to remove it.
+1. Proceda a eliminar el contenedor `docker-101`. Utilice `docker ps` para obtener el ID y luego `docker rm -f <id-del-contendor>` para eliminarlo.
 
-1. Start a new container using the same command from above.
+1. Inicie un nuevo contenedor usando el mismo comando del paso 2.
 
-1. Open the app. You should see your items still in your list!
+1. Abra la aplicación. Usted debe ver sus tareas todavía en su lista
 
-1. Go ahead and remove the container when you're done checking out your list.
+1. Adelante, proceda a eliminar el contenedor cuando haya terminado de revisar su lista.
 
-Hooray! You've now learned how to persist data!
+¡Genial! ¡Ahora ha aprendido a persistir los datos de su aplicación!
 
-!!! info "Pro-tip"
-    While named volumes and bind mounts (which we'll talk about in a minute) are the two main types of volumes supported
-    by a default Docker engine installation, there are many volume driver plugins available to support NFS, SFTP, NetApp, 
-    and more! This will be especially important once you start running containers on multiple hosts in a clustered
-    environment with Swarm, Kubernetes, etc.
+!!! info "Consejo"
+    Aunque los volúmenes nombrados y los montajes de enlace (de los que hablaremos en un minuto) son los dos tipos principales de volúmenes soportados por una instalación de motor Docker predeterminada, hay muchos plugins de controladores de volumen disponibles para soportar NFS, SFTP, NetApp y mucho más. Esto será especialmente importante una vez que comience a ejecutar contenedores en múltiples hosts en un entorno agrupado con Swarm, Kubernetes, etc.
 
 
-## Diving into our Volume
+## Sumérjase en nuestro Volumen
 
-A lot of people frequently ask "Where is Docker _actually_ storing my data when I use a named volume?" If you want to know, 
-you can use the `docker volume inspect` command.
+Mucha gente se pregunta con frecuencia "¿Dónde está Docker _actualmente_ almacenando mis datos cuando uso un volumen nombrado?" Si quiere saber, puede usar el comando `docker volume inspect`.
 
 ```bash
 docker volume inspect todo-db
 [
     {
-        "CreatedAt": "2019-09-26T02:18:36Z",
+        "CreatedAt": "2019-09-28T21:37:36Z",
         "Driver": "local",
         "Labels": {},
         "Mountpoint": "/var/lib/docker/volumes/todo-db/_data",
@@ -136,15 +108,11 @@ docker volume inspect todo-db
 ]
 ```
 
-The `Mountpoint` is the actual location on the disk where the data is stored. Note that on most machines, you will
-need to have root access to access this directory from the host. But, that's where it is!
+El `Mountpoint` es la ubicación real en el disco donde se almacenan los datos. Tenga en cuenta que en la mayoría de los equipos, necesitará tener acceso de root para acceder a este directorio desde el host. Pero, ahí es donde está.
 
 
-## Recap
+## Recapitulación
 
-At this point, we have a functioning application that can survive restarts! We can show it off to our investors and
-hope they can catch our vision!
+En este punto, tenemos una aplicación en funcionamiento que puede sobrevivir a los reinicios. ¡Podemos mostrarlo a nuestros inversores y esperar que puedan captar nuestra visión!
 
-However, we saw earlier that rebuilding images for every change takes quite a bit of time. There's got to be a better
-way to make changes, right? With bind mounts (which we hinted at earlier), there is a better way! Let's take a look at 
-that now!
+Sin embargo, vimos anteriormente que la reconstrucción de imágenes para cada cambio toma bastante tiempo. Tiene que haber una forma mejor de hacer cambios, ¿verdad? Con el uso de `bind mounts` (que ya hemos mencionado anteriormente), ¡hay una forma mejor de hacerlo! Echemos un vistazo a eso ahora!

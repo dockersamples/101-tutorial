@@ -1,42 +1,35 @@
 
-In the previous chapter, we talked about and used a **named volume** to persist the data in our database.
-Named volumes are great if we simply want to store data, as we don't have to worry about _where_ the data
-is stored.
+En el capítulo anterior, hablamos y usamos un **volúmenes nombrados** para mantener los datos en nuestra base de datos. Los volúmenes nombrados son excelentes si simplemente queremos almacenar datos, ya que no tenemos que preocuparnos por _donde_ se almacenan los datos. 
 
-With **bind mounts**, we control the exact mountpoint on the host. We can use this to persist data, but is often
-used to provide additional data into containers. When working on an application, we can use a bind mount to
-mount our source code into the container to let it see code changes, respond, and let us see the changes right
-away.
+Con **bind mounts**, controlamos el punto de montaje exacto en el host. Podemos utilizar esto para persistir en los datos, pero a menudo se utiliza para proporcionar datos adicionales en contenedores. Cuando trabajamos en una aplicación, podemos usar bind mount para montar nuestro código fuente en el contenedor para que vea los cambios de código, responda y nos permita ver los cambios de inmediato.
 
-For Node-based applications, [nodemon](https://npmjs.com/package/nodemon) is a great tool to watch for file
-changes and then restart the application. There are equivalent tools in most other languages and frameworks.
+Para aplicaciones basadas en Node, [nodemon](https://npmjs.com/package/nodemon) es una gran herramienta para observar los cambios en los archivos y luego reiniciar la aplicación. Existen herramientas equivalentes en la mayoría de los demás lenguajes y frameworks.
 
-## Quick Volume Type Comparisons
+## Comparaciones rápidas de tipos de volumen
 
-Bind mounts and named volumes are the two main types of volumes that come with the Docker engine. However, additional
-volume drivers are available to support other uses cases ([SFTP](https://github.com/vieux/docker-volume-sshfs), [Ceph](https://ceph.com/geen-categorie/getting-started-with-the-docker-rbd-volume-plugin/), [NetApp](https://netappdvp.readthedocs.io/en/stable/), [S3](https://github.com/elementar/docker-s3-volume), and more).
+Bind mounts y volúmenes nombrados son los dos tipos principales de volúmenes que vienen con el motor Docker. Sin embargo, hay controladores de volumen adicionales disponibles para soportar otros casos de uso. ([SFTP](https://github.com/vieux/docker-volume-sshfs), [Ceph](https://ceph.com/geen-categorie/getting-started-with-the-docker-rbd-volume-plugin/), [NetApp](https://netappdvp.readthedocs.io/en/stable/), [S3](https://github.com/elementar/docker-s3-volume), y más).
 
-|   | Named Volumes | Bind Mounts |
+|   | Volúmenes Nombrados | Bind Mounts |
 | - | ------------- | ----------- |
-| Host Location | Docker chooses | You control |
-| Mount Example (using `-v`) | my-volume:/usr/local/data | /path/to/data:/usr/local/data |
-| Populates new volume with container contents | Yes | No |
-| Supports Volume Drivers | Yes | No |
+| Ubicación del Anfitrión (Host) | Docker escoge | Usted controla |
+| Ejemplo de Mount (usando `-v`) | volumen:/usr/local/data | /path/to/data:/usr/local/data |
+| Llena el nuevo volumen con el contenido del contenedor | Si | No |
+| Soporta controladores de volumen | Si | No |
 
 
-## Starting a Dev-Mode Container
+## Inicio de un contenedor Modo-Dev
 
-To run our container to support a development workflow, we will do the following:
+Para ejecutar nuestro contenedor para soportar un flujo de trabajo de desarrollo, haremos lo siguiente:
 
-- Mount our source code into the container
-- Install all dependencies, including the "dev" dependencies
-- Start nodemon to watch for filesystem changes
+- Montar nuestro código fuente en el contenedor
+- Instalar todas las dependencias, incluyendo las dependencias "dev".
+- Iniciar nodemon para observar los cambios en el sistema de archivos
 
-So, let's do it!
+Así que, ¡hagámoslo!
 
-1. Make sure you don't have any previous `docker-101` containers running.
+1. Asegúrese de no tener ningún contenedor `docker-101` en funcionamiento.
 
-1. Run the following command. We'll explain what's going on afterwards:
+1. Ejecute el siguiente comando. Le explicaremos lo que pasa después:
 
     ```bash
     docker run -dp 3000:3000 \
@@ -45,14 +38,12 @@ So, let's do it!
         sh -c "yarn install && yarn run dev"
     ```
 
-    - `-dp 3000:3000` - same as before. Run in detached (background) mode and create a port mapping
-    - `-w /app` - sets the "working directory" or the current directory that the command will run from
-    - `node:10-alpine` - the image to use. Note that this is the base image for our app from the Dockerfile
-    - `sh -c "yarn install && yarn run dev"` - the command. We're starting a shell using `sh` (alpine doesn't have `bash`) and
-      running `yarn install` to install _all_ dependencies and then running `yarn run dev`. If we look in the `package.json`,
-      we'll see that the `dev` script is starting `nodemon`.
+    - `-dp 3000:3000` - igual que antes. Ejecutar en modo independiente (en segundo plano) y crear una asignación de puertos
+    - `-w /app` - establece el "directorio de trabajo" o el directorio actual desde el que se ejecutará el comando
+    - `node:10-alpine` - la imagen a utilizar. Tenga en cuenta que esta es la imagen base de nuestra aplicación desde el Dockerfile
+    - `sh -c "yarn install && yarn run dev"` - el comando. Estamos iniciando una shell usando `sh` (alpine no tiene `bash`) y ejecutando `yarn install` para instalar _todas las_ dependencias y luego ejecutando `yarn run dev`. Si miramos en el `package.json`, veremos que el script `dev` está empezando `nodemon`.
 
-1. You can watch the logs using `docker logs -f <container-id>`. You'll know you're ready to go when you see this...
+1. Puede ver los registros usando `docker logs -f <id-del-contenedor>`. 
 
     ```bash
     docker logs -f <container-id>
@@ -65,38 +56,29 @@ So, let's do it!
     Listening on port 3000
     ```
 
-    When you're done watching the logs, exit out by hitting `Ctrl`+`C`.
+    Cuando termine de ver los registros, salga pulsando `Ctrl`+`C`.
 
-1. Now, let's make a change to the app. In the `src/static/js/app.js` file, let's change the "Add Item" button to simply say
-   "Add". This change will be on line 109.
+1. Ahora, hagamos un cambio en la aplicación. En el archivo `src/static/js/app.js`, cambiemos el botón "Add Item" para decir simplemente "Agregar". Este cambio será en la línea 109.
 
     ```diff
     -                         {submitting ? 'Adding...' : 'Add Item'}
-    +                         {submitting ? 'Adding...' : 'Add'}
+    +                         {submitting ? 'Adding...' : 'Agregar'}
     ```
 
-1. Simply refresh the page (or open it) and you should see the change reflected in the browser almost immediately. It might
-   take a few seconds for the Node server to restart, so if you get an error, just try refreshing after a few seconds.
+1. Simplemente actualice la página (o ábrala) y verá el cambio reflejado en el navegador casi inmediatamente. El servidor de Node puede tardar unos segundos en reiniciarse, así que si obtiene un error, intente actualizarlo después de unos segundos.
 
     ![Screenshot of updated label for Add button](updated-add-button.png){: style="width:75%;"}
     {: .text-center }
 
-1. Feel free to make any other changes you'd like to make. When you're done, stop the container and build your new image
-   using `docker build -t docker-101 .`.
+1. Siéntase libre de hacer cualquier otro cambio que desee hacer. Cuando haya terminado, detenga el contenedor y cree su nueva imagen usando  `docker build -t docker-101 .`.
 
 
-Using bind mounts is _very_ common for local development setups. The advantage is that the dev machine doesn't need to have
-all of the build tools and environments installed. With a single `docker run` command, the dev environment is pulled and ready
-to go. We'll talk about Docker Compose in a future step, as this will help simplify our commands (we're already getting a lot
-of flags).
+El uso de bind mounts es _muy_ común en las configuraciones de desarrollo local. La ventaja es que la máquina de desarrollo no necesita tener todas las herramientas de construcción y entornos instalados. Con un solo comando `docker run`, el entorno de desarrollo se levanta y está listo para funcionar. Hablaremos de Docker Compose en un futuro, ya que esto nos ayudará a simplificar nuestros comandos (ya estamos recibiendo muchas banderas).
 
-## Recap
+## Recapitulación
 
-At this point, we can persist our database and respond rapidly to the needs and demands of our investors and founders. Hooray!
-But, guess what? We received great news!
+En este punto, podemos persistir en nuestra base de datos y responder rápidamente a las necesidades y demandas de nuestros inversores y fundadores. ¡Hurra! Pero, ¿adivina qué? Recibimos grandes noticias!
 
-**Your project has been selected for future development!** 
+**¡Su proyecto ha sido seleccionado para ser llevado a producción!** 
 
-In order to prepare for production, we need to migrate our database from working in SQLite to something that can scale a
-little better. For simplicity, we'll keep with a relational database and switch our application to use MySQL. But, how 
-should we run MySQL? How do we allow the containers to talk to each other? We'll talk about that next!
+Para ir a producción, necesitamos migrar nuestra base de datos, pasando de trabajar en SQLite a algo que pueda escalar un poco mejor. Para simplificar, nos mantendremos con una base de datos relacional y cambiaremos nuestra aplicación para usar MySQL. Pero, ¿cómo debemos ejecutar MySQL? ¿Cómo permitimos que los contenedores se comuniquen entre sí? ¡Hablaremos de eso después!

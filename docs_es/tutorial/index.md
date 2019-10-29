@@ -17,7 +17,7 @@ Notarás que se están usando algunas banderas. Aquí hay más información sobr
 - `-p 80:80` - asigna el puerto 80 del host al puerto 80 del contenedor
 - `dockersamples/101-tutorial` - la imagen a utilizar
 
-!!! info "Consejo profesional"
+!!! info "Consejo"
     Puede combinar banderas de un solo carácter para acortar el comando completo.
     Por ejemplo, el comando anterior podría escribirse como:
     ```

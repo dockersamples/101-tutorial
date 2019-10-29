@@ -1,30 +1,27 @@
 
-Now that we've built an image, let's share it! To share Docker images, you have to use a Docker
-registry. The default registry is Docker Hub and is where all of the images we've used have come from.
+Ahora que hemos construido una imagen, ¡compartámosla! Para compartir imágenes Docker, debe utilizar un registro Docker. El registro por defecto es Docker Hub y es de donde vienen todas las imágenes que hemos usado.
 
-## Create a Repo
+## Crear un Repo
 
-To push an image, we first need to create a repo on Docker Hub.
+Para subir (push) una imagen, primero tenemos que crear un repositorio en Docker Hub.
 
-1. Go to [Docker Hub](https://hub.docker.com) and log in if you need to.
+1. Ir a [Docker Hub](https://hub.docker.com) e identifíquese si es necesario.
 
-1. Click the **Create Repository** button.
+1. Haga clic en el botón **Crear Repositorio**.
 
-1. For the repo name, use `101-todo-app`. Make sure the Visibility is `Public`.
+1. Para el nombre del repositorio, use `101-todo-app`. Asegúrese de que la visibilidad sea "pública".
 
-1. Click the **Create** button!
+1. ¡Haga clic en el botón **Crear**!
 
-If you look on the right-side of the page, you'll see a section named **Docker commands**. This gives
-an example command that you will need to run to push to this repo.
+Si miras en el lado derecho de la página, verás una sección llamada **Docker commands**. Esto da un comando de ejemplo que necesitará ejecutar para subir (push) su imagen a este repositorio.
 
-![Docker command with push example](push-command.png){: style=width:75% }
+![Comando Docker con ejemplo push](push-command.png){: style=width:75% }
 {: .text-center }
 
 
-## Pushing our Image
+## Subiendo nuestra imagen
 
-1. Back in your PWD instance, try running the command. You should get an error that looks something 
-like this:
+1. De vuelta en su instancia de PWD, intente ejecutar el comando. Debería aparecer un error que se parezca a esto:
 
     ```plaintext
     $ docker push dockersamples/101-todo-app
@@ -32,51 +29,41 @@ like this:
     An image does not exist locally with the tag: dockersamples/101-todo-app
     ```
 
-    Why did it fail? The push command was looking for an image named dockersamples/101-todo-app, but
-    didn't find one. If you run `docker image ls`, you won't see one either.
+    ¿Por qué falló? El comando push estaba buscando una imagen llamada dockersamples/101-todo-app, pero no la encontró. Si ejecuta `docker image ls`, tampoco verá uno.
 
-    To fix this, we need to "tag" our image, which basically means give it another name.
+    Para arreglar esto, necesitamos "etiquetar" nuestra imagen, lo que básicamente significa darle otro nombre.
 
-1. Use the `docker tag` command to give the `docker-101` image a new name. Be sure to swap out
-   `YOUR-USER-NAME` with your Docker ID.
+1. Utilice el comando `docker tag` para dar un nuevo nombre a la imagen `docker-101`. Asegúrate de cambiar "TU-NOMBRE-DE-USUARIO" por tu ID de Docker.
 
     ```bash
-    docker tag docker-101 YOUR-USER-NAME/101-todo-app
+    docker tag docker-101 TU-NOMBRE-DE-USUARIO/101-todo-app
     ```
 
-1. Now try your push command again. If you're copying the value from Docker Hub, you can drop the 
-   `tagname` portion, as we didn't add a tag to the image name.
+1. Ahora intente su comando para subir la imagen de nuevo. Si está copiando el valor de Docker Hub, puede omitir la parte de `tagname`, ya que no añadimos una etiqueta al nombre de la imagen.
 
     ```bash
-    docker push YOUR-USER-NAME/101-todo-app
+    docker push TU-NOMBRE-DE-USUARIO/101-todo-app
     ```
 
-## Running our Image on a New Instance
+## Ejecutar nuestra imagen en una nueva instancia
 
-Now that our image has been built and pushed into a registry, let's try running our app on a brand
-instance that has never seen this container!
+Ahora que nuestra imagen ha sido construida e introducida en un registro, ¡vamos a intentar ejecutar nuestra aplicación en una instancia que nunca ha visto este contenedor!
 
-1. Back in PWD, click on **Add New Instance** to create a new instance.
+1. De vuelta en PWD, haga clic en **Añadir Nueva Instancia** para crear una nueva instancia.
 
-1. In the new instance, start your freshly pushed app.
+1. En la nueva instancia, inicia tu nueva aplicación.
 
     ```bash
-    docker run -dp 3000:3000 YOUR-USER-NAME/101-todo-app
+    docker run -dp 3000:3000 TU-NOMBRE-DE-USUARIO/101-todo-app
     ```
 
-    You should see the image get pulled down and eventually start up!
+    Deberías ver que la imagen es descargada y ¡eventualmente puesta en marcha!
 
-1. Click on the 3000 badge when it comes up and you should see the app with your modifications! Hooray!
+1. Haz clic en la insignia 3000 cuando aparezca y deberías ver la aplicación con tus modificaciones ¡Hurra!
 
 
-## Recap
+## Recapitulación
 
-In this section, we learned how to share our images by pushing them to a registry. We then went to a
-brand new instance and were able to run the freshly pushed image. This is quite common in CI pipelines,
-where the pipeline will create the image and push it to a registry and then the production environment
-can use the latest version of the image.
+En esta sección, aprendimos a compartir nuestras imágenes subiéndolas a un registro. Luego fuimos a una nueva instancia y pudimos ejecutar la nueva imagen. Esto es bastante común en los Pipelines de CI, donde el Pipeline creará la imagen y la subirá a un registro y entonces el entorno de producción podrá utilizar la última versión de la imagen.
 
-Now that we have that figured out, let's circle back around to what we noticed at the end of the last
-section. As a reminder, we noticed that when we restarted the app, we lost all of our todo list items.
-That's obviously not a great user experience, so let's learn how we can persist the data across 
-restarts!
+Ahora que tenemos eso resuelto, volvamos a lo que notamos al final de la última sección. Como recordatorio, notamos que cuando reiniciamos la aplicación, perdimos todos los elementos de nuestra lista de tareas pendientes. Obviamente, esa no es una gran experiencia de usuario, ¡así que aprendamos cómo podemos conservar los datos en los reinicios!
