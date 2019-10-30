@@ -29,12 +29,7 @@ Você notará algumas opções sendo usadas. Aqui estão mais algumas informaç�
 
 Agora que você executou um contêiner, o que _é_ um contêiner? Simplificando, um contêiner é
 simplesmente outro processo em sua máquina que foi isolado de todos os outros processos
-na máquina host.
-
-
-Now that you've run a container, what _is_ a container? Simply put, a container is
-simply another process on your machine that has been isolated from all other processes
-on the host machine. Esse isolamento aproveita os [namespaces do kernel e cgroups](https://medium.com/@saschagrunert/demystifying-containers-part-i-kernel-space-2c53d6979504), recursos que estão no Linux há muito tempo. O Docker trabalhou para tornar esses recursos acessíveis e fáceis de usar.
+na máquina host. Esse isolamento aproveita os [namespaces do kernel e cgroups](https://medium.com/@saschagrunert/demystifying-containers-part-i-kernel-space-2c53d6979504), recursos que estão no Linux há muito tempo. O Docker trabalhou para tornar esses recursos acessíveis e fáceis de usar.
 
 !!! info "Criando containers a partir do zero"
     Se você gostaria de ver como os contêineres são construídos a partir do zero, Liz Rice, da Aqua Security
