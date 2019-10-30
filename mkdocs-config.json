@@ -104,5 +104,58 @@
                 "dir_name": "dicas-pwd"
             }
         }
+    },
+    "es" : {
+        "language_code": "es",
+        "site_description": "Un tutorial para aprender a usar Docker",
+        "tutorial_dir_name": "tutorial",
+        "nav": {
+            "Tutorial": {
+                "title": "Tutorial"
+            },
+            "Getting Started": {
+                "title" : "Primeros pasos"
+            },
+            "Our Application": {
+                "title": "Nuestra aplicación",
+                "dir_name": "nuestra-aplicacion"
+            },
+            "Updating our App": {
+                "title": "Actualizando nuestra aplicación",
+                "dir_name": "actualizando-nuestra-aplicacion"
+            },
+            "Sharing our App": {
+                "title": "Compartiendo nuestra aplicación",
+                "dir_name": "compartiendo-nuestra-aplicacion"
+            },
+            "Persisting our DB": {
+                "title": "Persistiendo nuestra base de datos",
+                "dir_name": "persistiendo-nuestra-base-de-datos"
+            },
+            "Using Bind Mounts": {
+                "title": "Usando Bind Mounts",
+                "dir_name": "usando-bind-mounts"
+            },
+            "Multi-Container Apps": {
+                "title": "Aplicaciones Multi-Contenedor",
+                "dir_name": "aplicaciones-multi-contenedor"
+            },
+            "Using Docker Compose": {
+                "title": "Usando Docker Compose",
+                "dir_name": "usando-docker-compose"
+            },
+            "Image Building Best Practices": {
+                "title": "Buenas prácticas para construcción de imagenes",
+                "dir_name": "buenas-practicas-para-construccion-de-imagenes"
+            },
+            "What Next?": {
+                "title": "¿Qué sigue?",
+                "dir_name": "que-sigue"
+            },
+            "PWD Tips": {
+                "title": "Consejos para usar PWD",
+                "dir_name": "consejos-para-usar-pwd"
+            }
+        }
     }
 }
