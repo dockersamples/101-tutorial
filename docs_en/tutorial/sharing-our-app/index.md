@@ -37,6 +37,8 @@ like this:
 
     To fix this, we need to "tag" our image, which basically means give it another name.
 
+1. Login to the Docker Hub using the command `docker login -u YOUR-USER-NAME`.
+
 1. Use the `docker tag` command to give the `docker-101` image a new name. Be sure to swap out
    `YOUR-USER-NAME` with your Docker ID.
 

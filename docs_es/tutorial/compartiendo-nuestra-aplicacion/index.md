@@ -33,6 +33,8 @@ Si miras en el lado derecho de la página, verás una sección llamada **Docker 
 
     Para arreglar esto, necesitamos "etiquetar" nuestra imagen, lo que básicamente significa darle otro nombre.
 
+1. Inicie su sesión en Docker Hub con el comando `docker login -u TU-NOMBRE-DE-USUARIO`.
+
 1. Utilice el comando `docker tag` para dar un nuevo nombre a la imagen `docker-101`. Asegúrate de cambiar "TU-NOMBRE-DE-USUARIO" por tu ID de Docker.
 
     ```bash
