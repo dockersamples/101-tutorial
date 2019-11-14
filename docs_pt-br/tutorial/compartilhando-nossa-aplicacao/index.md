@@ -37,7 +37,7 @@ como isso:
 
     Para consertar isso, precisamos "marcar" nossa imagem, o que basicamente significa atribuir outro nome a ela.
 
-1. Faça o login no Docker Hub utilizando o comando `docker login YOUR-USER-NAME`.
+1. Faça o login no Docker Hub utilizando o comando `docker login -u YOUR-USER-NAME`.
 
 1. Use o comando `docker tag` para dar à imagem `docker-101` um novo nome. Certifique-se de trocar
     `YOUR-USER-NAME` com seu ID do Docker.
