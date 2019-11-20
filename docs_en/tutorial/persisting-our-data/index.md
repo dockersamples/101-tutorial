@@ -8,9 +8,6 @@ When a container runs, it uses the various layers from an image for its filesyst
 Each container also gets its own "scratch space" to create/update/remove files. Any
 changes won't be seen in another container, _even if_ they are using the same image.
 
-!!! todo
-    Image about filesystem here
-
 
 ### Seeing this in Practice
 
