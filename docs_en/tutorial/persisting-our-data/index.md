@@ -49,7 +49,7 @@ What you'll see is that the files created in one container aren't available in a
 
 ## Container Volumes
 
-With the previous experiment, we saw that each images is effectively read-only. While containers
+With the previous experiment, we saw that each container restarts from scratch from its image. While containers
 can create, update, and delete files, those changes are lost when the container is removed and are isolated
 to that container. With volumes, we can change all of this.
 
