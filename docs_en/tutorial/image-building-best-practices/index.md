@@ -8,7 +8,7 @@ command, you can see the command that was used to create each layer within an im
    created earlier in the tutorial.
 
     ```bash
-    docker image history
+    docker image history docker-101
     ```
 
     You should get output that looks something like this (dates/IDs may be different).
