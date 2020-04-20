@@ -26,7 +26,7 @@ docker-compose version
 
 ## Creating our Compose File
 
-1. At the root of the app project, [create a file](/pwd-tips.md#creating-files) named `docker-compose.yml`.
+1. At the root of the app project, [create a file](/pwd-tips#creating-files) named `docker-compose.yml`.
 
 1. In the compose file, we'll start off by defining the schema version. In most cases, it's best to use 
    the latest supported version. You can look at the [Compose file reference](https://docs.docker.com/compose/compose-file/)
