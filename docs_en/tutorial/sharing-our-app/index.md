@@ -46,12 +46,25 @@ like this:
     docker tag docker-101 YOUR-USER-NAME/101-todo-app
     ```
 
+1. Verify that your image has been tagged correctly. You should see an image with the name `YOUR-USER-NAME/101-todo-app`.
+
+    ```bash
+    docker image ls
+    ```
+
+1. Login to your **Docker Hub** account.
+
+    ```bash
+    docker login
+    ```
+
 1. Now try your push command again. If you're copying the value from Docker Hub, you can drop the 
    `tagname` portion, as we didn't add a tag to the image name.
 
     ```bash
     docker push YOUR-USER-NAME/101-todo-app
     ```
+
 
 ## Running our Image on a New Instance
 
