@@ -247,7 +247,7 @@ volumes:
 
 Now that we have our `docker-compose.yml` file, we can start it up!
 
-1. Make sure no other copies of the app/db are running first (`docker ps` and `docker rm -f <ids>`).
+1. Make sure no other copies of the app/db are running first (`docker-compose down --volumes`).
 
 1. Start up the application stack using the `docker-compose up` command. We'll add the `-d` flag to run everything in the
    background.
