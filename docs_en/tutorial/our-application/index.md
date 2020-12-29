@@ -48,7 +48,7 @@ Dockerfile is simply a text-based script of instructions that is used to
 create a container image. If you've created Dockerfiles before, you might
 see a few flaws in the Dockerfile below. But, don't worry! We'll go over them.
 
-1. Create a file named Dockerfile with the following contents.
+1. Create a file named Dockerfile with the following contents. ([Editing files in PWD tips here](/pwd-tips#editing-files))
 
     ```dockerfile
     FROM node:10-alpine
