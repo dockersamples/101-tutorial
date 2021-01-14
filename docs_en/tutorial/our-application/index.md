@@ -51,7 +51,7 @@ see a few flaws in the Dockerfile below. But, don't worry! We'll go over them.
 1. Create a file named Dockerfile with the following contents.
 
     ```dockerfile
-    FROM node:10-alpine
+    FROM node:14
     WORKDIR /app
     COPY . .
     RUN yarn install --production
