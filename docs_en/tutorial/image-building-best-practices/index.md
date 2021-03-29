@@ -147,7 +147,7 @@ a change to the `package.json`. Make sense?
     Successfully tagged docker-101:latest
     ```
 
-    First off, you should notice that the build was MUCH faster! And, you'll see that steps 1-4 all have
+    First off, you should notice that the build was MUCH faster! And, you'll see that steps 2-4 all have
     `Using cache`. So, hooray! We're using the build cache. Pushing and pulling this image and updates to it
     will be much faster as well. Hooray!
 
