@@ -1,5 +1,7 @@
 # Docker 101 Tutorial
 
+> :warning: **This project is archived.** The official "Getting Started" guide can be found at [docker/getting-started](https://github.com/docker/getting-started).
+
 This tutorial has been written with the intent of helping folks get up and running
 with containers. While not going too much into depth, it covers the following topics:
 
