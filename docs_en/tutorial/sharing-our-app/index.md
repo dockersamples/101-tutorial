@@ -55,7 +55,7 @@ like this:
 
 ## Running our Image on a New Instance
 
-Now that our image has been built and pushed into a registry, let's try running our app on a brand
+Now that our image has been built and pushed into a registry, let's try running our app on a brand new
 instance that has never seen this container!
 
 1. Back in PWD, click on **Add New Instance** to create a new instance.
